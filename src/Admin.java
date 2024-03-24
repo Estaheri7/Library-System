@@ -1,10 +1,6 @@
-public class Admin {
-    private String username;
-    private String password;
-    private final String role = "admin";
-
-    public Admin(String username, String password) {
-        this.username = username;
-        this.password = password;
+public class Admin extends Person {
+    public Admin(String personId, String password, String name, String lastName, String nationalCode,
+                     String birthdate, String address) {
+        super(personId, password, name, lastName, nationalCode, birthdate, address, "admin");
     }
 }
