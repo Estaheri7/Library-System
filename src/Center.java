@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Center {
@@ -15,5 +16,9 @@ public class Center {
 
     private static boolean personExists(String key) {
         return persons.containsKey(key);
+    }
+
+    private static String describeRole(String personId) {
+        return persons.get(personId).getRole();
     }
 }
