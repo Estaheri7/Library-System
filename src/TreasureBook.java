@@ -1,5 +1,5 @@
 public class TreasureBook {
-    public String publisher;
-    public String donateName;
+    private String publisher;
+    private String donateName;
 
 }
