@@ -21,4 +21,8 @@ public class Center {
     private static String describeRole(String personId) {
         return persons.get(personId).getRole();
     }
+
+    private static boolean checkPassword(String personId, String password) {
+        return persons.get(personId).getPassword().equals(password);
+    }
 }
