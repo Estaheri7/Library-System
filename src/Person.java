@@ -19,4 +19,8 @@ public abstract class Person {
         this.address = address;
         this.role = role;
     }
+
+    public String getRole() {
+        return this.role;
+    }
 }
