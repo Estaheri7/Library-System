@@ -36,6 +36,38 @@ public class Center {
         return "success";
     }
 
+    public static String addCategory(String[] args) {
+        String personId = args[1];
+        String personPassword = args[2];
+        String categoryId = args[3];
+        String categoryName = args[4];
+        String superCategory = args[5];
+
+        if (!personExists(personId)) {
+            return "not-found";
+        }
+
+        if (categoryExists(categoryId)) {
+            return "duplicate-id";
+        }
+
+        if (!superCategory.equals("null") && !categoryExists(superCategory)) {
+            return "not-found";
+        }
+
+        if (!describeRole(personId).equals("admin")) {
+            return "permission-denied";
+        }
+
+        if (!isCorrectPassword(personId, personPassword)) {
+            return "invalid-pass";
+        }
+
+        Category category = new Category(categoryId, categoryName, superCategory);
+        categories.put(categoryId, category);
+        return "success";
+    }
+
     private static boolean libraryExists(String key) {
         return libraries.containsKey(key);
     }
