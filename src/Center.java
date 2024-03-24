@@ -6,6 +6,11 @@ public class Center {
     private final static HashMap<String, Library> libraries = new HashMap<>();
     private final static HashMap<String, Category> categories = new HashMap<>();
 
+    public static void initialAdmin() {
+        Admin admin = new Admin("admin", "AdminPass", "admin", "admin", "123", "10000", "test");
+        persons.put("admin", admin);
+    }
+
     public static String addLibrary(String[] args) {
         String personId = args[1];
         String personPassword = args[2];
@@ -149,7 +154,7 @@ public class Center {
         persons.remove(personId);
         return "success";
     }
-    
+
     private static boolean libraryExists(String key) {
         return libraries.containsKey(key);
     }
