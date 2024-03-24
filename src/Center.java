@@ -68,18 +68,19 @@ public class Center {
         return "success";
     }
 
-    public static String addStudent(String[] args) {
+    public static String addPerson(String[] args) {
+        String[] method = args[0].split("-");
         String adminId = args[1];
         String adminPassword = args[2];
-        String studentId = args[3];
-        String studentPassword = args[4];
+        String personId = args[3];
+        String personPassword = args[4];
         String name = args[5];
         String lastName = args[6];
         String nationalCode = args[7];
         String birthdate = args[8];
         String address = args[9];
 
-        if (personExists(studentId)) {
+        if (personExists(personId)) {
             return "duplicate-id";
         }
 
@@ -95,8 +96,31 @@ public class Center {
             return "invalid-pass";
         }
 
-        Student student = new Student(studentId, studentPassword, name, lastName, nationalCode, birthdate, address);
-        persons.put(studentId, student);
+        String extraAttribute = "";
+        if (args.length == 11) {
+            extraAttribute = args[10];
+        }
+
+        if (method[1].equals("student")) {
+            Student student = new Student(personId, personPassword, name, lastName, nationalCode,
+                    birthdate, address);
+            persons.put(personId, student);
+        } else if (method[1].equals("staff") && extraAttribute.equals("staff")) {
+            Staff staff = new Staff(personId, personPassword, name, lastName, nationalCode,
+                    birthdate, address, extraAttribute);
+            persons.put(personId, staff);
+        } else if (method[1].equals("staff") && extraAttribute.equals("professor")) {
+            Professor professor = new Professor(personId, personPassword, name, lastName, nationalCode,
+                    birthdate, address, extraAttribute);
+            persons.put(personId, professor);
+        } else if (method[1].equals("manager")) {
+            if (!libraryExists(extraAttribute)) {
+                return "not-found";
+            }
+            Manager manager = new Manager(personId, personPassword, name, lastName, nationalCode,
+                    birthdate, address, extraAttribute);
+            persons.put(personId, manager);
+        }
         return "success";
     }
 
