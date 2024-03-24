@@ -68,6 +68,38 @@ public class Center {
         return "success";
     }
 
+    public static String addStudent(String[] args) {
+        String adminId = args[1];
+        String adminPassword = args[2];
+        String studentId = args[3];
+        String studentPassword = args[4];
+        String name = args[5];
+        String lastName = args[6];
+        String nationalCode = args[7];
+        String birthdate = args[8];
+        String address = args[9];
+
+        if (personExists(studentId)) {
+            return "duplicate-id";
+        }
+
+        if (!personExists(adminId)) {
+            return "not-found";
+        }
+
+        if (!describeRole(adminId).equals("admin")) {
+            return "permission-denied";
+        }
+
+        if (!isCorrectPassword(adminId, adminPassword)) {
+            return "invalid-pass";
+        }
+
+        Student student = new Student(studentId, studentPassword, name, lastName, nationalCode, birthdate, address);
+        persons.put(studentId, student);
+        return "success";
+    }
+
     private static boolean libraryExists(String key) {
         return libraries.containsKey(key);
     }
