@@ -24,16 +24,16 @@ public class Center {
             return "not-found";
         }
 
-        if (libraryExists(libraryId)) {
-            return "duplicate-id";
-        }
-
         if (!describeRole(personId).equals("admin")) {
             return "permission-denied";
         }
 
         if (!isCorrectPassword(personId, personPassword)) {
             return "invalid-pass";
+        }
+
+        if (libraryExists(libraryId)) {
+            return "duplicate-id";
         }
 
         Library library = new Library(libraryId, name, year, numberOfTables, address);
@@ -52,20 +52,20 @@ public class Center {
             return "not-found";
         }
 
-        if (categoryExists(categoryId)) {
-            return "duplicate-id";
-        }
-
-        if (!superCategory.equals("null") && !categoryExists(superCategory)) {
-            return "not-found";
-        }
-
         if (!describeRole(personId).equals("admin")) {
             return "permission-denied";
         }
 
         if (!isCorrectPassword(personId, personPassword)) {
             return "invalid-pass";
+        }
+
+        if (!superCategory.equals("null") && !categoryExists(superCategory)) {
+            return "not-found";
+        }
+
+        if (categoryExists(categoryId)) {
+            return "duplicate-id";
         }
 
         Category category = new Category(categoryId, categoryName, superCategory);
@@ -104,6 +104,7 @@ public class Center {
         String extraAttribute = "";
         if (args.length == 11) {
             extraAttribute = args[10];
+            System.out.println(extraAttribute);
         }
 
         if (method[1].equals("student")) {
@@ -148,7 +149,7 @@ public class Center {
         }
 
         if (!personExists(personId)) {
-            return "not-found!";
+            return "not-found";
         }
 
         persons.remove(personId);
