@@ -7,4 +7,16 @@ public abstract class Person {
     private String birthdate;
     private String address;
     private String role;
+
+    public Person(String personId, String password, String name, String lastName, String nationalCode,
+                  String birthdate, String address, String role) {
+        this.personId = personId;
+        this.password = password;
+        this.name = name;
+        this.lastName = lastName;
+        this.nationalCode = nationalCode;
+        this.birthdate = birthdate;
+        this.address = address;
+        this.role = role;
+    }
 }
