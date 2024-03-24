@@ -20,6 +20,10 @@ public abstract class Person {
         this.role = role;
     }
 
+    public String getPassword() {
+        return this.password;
+    }
+    
     public String getRole() {
         return this.role;
     }
