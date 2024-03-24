@@ -80,10 +80,6 @@ public class Center {
         String birthdate = args[8];
         String address = args[9];
 
-        if (personExists(personId)) {
-            return "duplicate-id";
-        }
-
         if (!personExists(adminId)) {
             return "not-found";
         }
@@ -94,6 +90,10 @@ public class Center {
 
         if (!isCorrectPassword(adminId, adminPassword)) {
             return "invalid-pass";
+        }
+
+        if (personExists(personId)) {
+            return "duplicate-id";
         }
 
         String extraAttribute = "";
@@ -124,6 +124,32 @@ public class Center {
         return "success";
     }
 
+    // TODO -> not-allowed statement
+    public static String removePerson(String[] args) {
+        String adminId = args[1];
+        String adminPassword = args[2];
+        String personId = args[3];
+
+        if (!personExists(adminId)) {
+            return "not-found";
+        }
+
+        if (!describeRole(adminId).equals("admin")) {
+            return "permission-denied";
+        }
+
+        if (!isCorrectPassword(adminId, adminPassword)) {
+            return "invalid-pass";
+        }
+
+        if (!personExists(personId)) {
+            return "not-found!";
+        }
+
+        persons.remove(personId);
+        return "success";
+    }
+    
     private static boolean libraryExists(String key) {
         return libraries.containsKey(key);
     }
