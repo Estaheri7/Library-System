@@ -1,2 +1,6 @@
-public class Staff {
+public class Staff extends Person {
+    public Staff(String personId, String password, String name, String lastName, String nationalCode,
+                   String birthdate, String address, String role) {
+        super(personId, password, name, lastName, nationalCode, birthdate, address, role);
+    }
 }
