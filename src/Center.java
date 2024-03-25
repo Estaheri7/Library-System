@@ -60,12 +60,12 @@ public class Center {
             return "invalid-pass";
         }
 
-        if (!superCategory.equals("null") && !categoryExists(superCategory)) {
-            return "not-found";
-        }
-
         if (categoryExists(categoryId)) {
             return "duplicate-id";
+        }
+
+        if (!superCategory.equals("null") && !categoryExists(superCategory)) {
+            return "not-found";
         }
 
         Category category = new Category(categoryId, categoryName, superCategory);
@@ -104,7 +104,6 @@ public class Center {
         String extraAttribute = "";
         if (args.length == 11) {
             extraAttribute = args[10];
-            System.out.println(extraAttribute);
         }
 
         if (method[1].equals("student")) {
