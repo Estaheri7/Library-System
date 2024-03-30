@@ -153,6 +153,12 @@ public class Center {
         persons.put(args[0], student);
     }
 
+    public static String addBook(String[] args) {
+        NormalBook book = new NormalBook(args[3], args[4], args[5], args[6], args[7], Integer.parseInt(args[8]),
+                args[9], args[10]);
+        return null;
+    }
+    
     private static void addStaff(String... args) {
         String role = args[7];
         if (role.equals("staff")) {
