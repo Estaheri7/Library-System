@@ -5,4 +5,8 @@ public class Manager extends Person {
         super(personId, password, name, lastName, nationalCode, birthdate, address, "manager");
         this.libraryId = libraryId;
     }
+
+    public String getLibraryId() {
+        return this.libraryId;
+    }
 }
