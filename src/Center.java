@@ -107,24 +107,17 @@ public class Center {
         }
 
         if (method[1].equals("student")) {
-            Student student = new Student(personId, personPassword, name, lastName, nationalCode,
+            addStudent(personId, personPassword, name, lastName, nationalCode,
                     birthdate, address);
-            persons.put(personId, student);
-        } else if (method[1].equals("staff") && extraAttribute.equals("staff")) {
-            Staff staff = new Staff(personId, personPassword, name, lastName, nationalCode,
+        } else if (method[1].equals("staff")) {
+            addStaff(personId, personPassword, name, lastName, nationalCode,
                     birthdate, address, extraAttribute);
-            persons.put(personId, staff);
-        } else if (method[1].equals("staff") && extraAttribute.equals("professor")) {
-            Professor professor = new Professor(personId, personPassword, name, lastName, nationalCode,
-                    birthdate, address, extraAttribute);
-            persons.put(personId, professor);
         } else if (method[1].equals("manager")) {
             if (!libraryExists(extraAttribute)) {
                 return "not-found";
             }
-            Manager manager = new Manager(personId, personPassword, name, lastName, nationalCode,
+            addManager(personId, personPassword, name, lastName, nationalCode,
                     birthdate, address, extraAttribute);
-            persons.put(personId, manager);
         }
         return "success";
     }
