@@ -10,12 +10,12 @@ public class TestParser {
         } else if (command[0].equals("remove-user")) {
             System.out.println(Center.removePerson(command));
         } else if (command[0].equals("add-book")) {
-            System.out.printf(Center.addBook(command));
+            System.out.println(Center.addBook(command));
         } else if (command[0].equals("add-thesis")) {
-            System.out.printf(Center.addThesis(command));
+            System.out.println(Center.addThesis(command));
         } else if (command[0].equals("add-ganjineh-book")) {
             System.out.println(Center.addGanjineh(command));
-        } else if (command[0].equals("add-seeling-book")) {
+        } else if (command[0].equals("add-selling-book")) {
             System.out.println(Center.addSellingBook(command));
         } else if (command[0].equals("remove-resource")) {
             System.out.println(Center.removeResource(command));
