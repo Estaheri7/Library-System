@@ -172,28 +172,53 @@ public class Center {
         persons.put(args[0], manager);
     }
 
+    public static String addResource(Item item, String personId, String password) {
+        if (!categoryExists(item.getCategoryId()) || !libraryExists(item.getLibraryId())
+            || !personExists(personId)) {
+            return "not-found";
+        }
+
+        Person person = persons.get(personId);
+        Library library = libraries.get(item.getLibraryId());
+
+        if (!isLibraryManager(personId, library.getLibraryId())) {
+            return "permission-denied";
+        }
+
+        if (!person.getPassword().equals(password)) {
+            return "invalid-pass";
+        }
+
+//        if (bookExists(library, item.getItemId())) {
+//            return "duplicate-id";
+//        }
+
+        library.addItem(item);
+        return "success";
+    }
+
     public static String addBook(String[] args) {
         NormalBook book = new NormalBook(args[3], args[4], args[5], args[6], args[7], Integer.parseInt(args[8]),
                 args[9], args[10]);
-        return null;
+        return addResource(book, args[1], args[2]);
     }
 
     public static String addThesis(String[] args) {
         Thesis thesis = new Thesis(args[3], args[4], args[5], args[6], args[7], args[8],
                 args[9]);
-        return null;
+        return addResource(thesis, args[1], args[2]);
     }
 
     public static String addGanjineh(String[] args) {
         TreasureBook tBook = new TreasureBook(args[3], args[4], args[5], args[6], args[7], args[8],
                 args[9], args[10]);
-        return null;
+        return addResource(tBook, args[1], args[2]);
     }
 
     public static String addSellingBook(String[] args) {
         PurchasableBook pBook = new PurchasableBook(args[3], args[4], args[5], args[6], args[7], Integer.parseInt(args[8]),
                 args[9], args[10], args[11], args[12]);
-        return null;
+        return addResource(pBook, args[1], args[2]);
     }
 
     private static boolean libraryExists(String key) {
@@ -223,4 +248,5 @@ public class Center {
         }
         return false;
     }
+
 }
