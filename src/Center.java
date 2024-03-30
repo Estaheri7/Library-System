@@ -189,9 +189,9 @@ public class Center {
             return "invalid-pass";
         }
 
-//        if (bookExists(library, item.getItemId())) {
-//            return "duplicate-id";
-//        }
+        if (bookExists(library, item.getItemId())) {
+            return "duplicate-id";
+        }
 
         library.addItem(item);
         return "success";
@@ -249,4 +249,8 @@ public class Center {
         return false;
     }
 
+    private static boolean bookExists(Library library, String itemId) {
+        HashMap<String, Item> books = library.getItems();
+        return books.containsKey(itemId);
+    }
 }
