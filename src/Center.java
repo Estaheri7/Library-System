@@ -172,6 +172,86 @@ public class Center {
         persons.put(args[0], manager);
     }
 
+    public static String addResource(Item item, String personId, String password) {
+        if (!categoryExists(item.getCategoryId()) && !item.getCategoryId().equals("null")) {
+            return "not-found";
+        }
+        if (!libraryExists(item.getLibraryId())) {
+            return "not-found";
+        }
+        if (!personExists(personId)) {
+            return "not-found";
+        }
+
+        Library library = libraries.get(item.getLibraryId());
+
+        if (!isLibraryManager(personId, library.getLibraryId())) {
+            return "permission-denied";
+        }
+
+        if (!isCorrectPassword(personId, password)) {
+            return "invalid-pass";
+        }
+
+        if (bookExists(library, item.getItemId())) {
+            return "duplicate-id";
+        }
+
+        library.addItem(item);
+        return "success";
+    }
+
+    // TODO - not-allowed statement.
+    public static String removeResource(String[] args) {
+        if (!libraryExists(args[4])) {
+            return "not-found";
+        }
+
+        Library library = libraries.get(args[4]);
+        if (!bookExists(library, args[3])) {
+            return "not-found";
+        }
+
+        if (!personExists(args[1])) {
+            return "not-found";
+        }
+
+        if (!isLibraryManager(args[1], args[4])) {
+            return "permission-denied";
+        }
+
+        if (!isCorrectPassword(args[1], args[2])) {
+            return "invalid-pass";
+        }
+
+        library.removeItem(args[3]);
+        return "success";
+    }
+
+    public static String addBook(String[] args) {
+        NormalBook book = new NormalBook(args[3], args[4], args[5], args[6], args[7], Integer.parseInt(args[8]),
+                args[9], args[10]);
+        return addResource(book, args[1], args[2]);
+    }
+
+    public static String addThesis(String[] args) {
+        Thesis thesis = new Thesis(args[3], args[4], args[5], args[6], args[7], args[8],
+                args[9]);
+        return addResource(thesis, args[1], args[2]);
+    }
+
+    public static String addGanjineh(String[] args) {
+        TreasureBook tBook = new TreasureBook(args[3], args[4], args[5], args[6], args[7], args[8],
+                args[9], args[10]);
+        return addResource(tBook, args[1], args[2]);
+    }
+
+    public static String addSellingBook(String[] args) {
+        PurchasableBook pBook = new PurchasableBook(args[3], args[4], args[5], args[6], args[7], Integer.parseInt(args[8]),
+                args[9], args[10], args[11], args[12]);
+        return addResource(pBook, args[1], args[2]);
+    }
+
     private static boolean libraryExists(String key) {
         return libraries.containsKey(key);
     }
@@ -190,5 +270,18 @@ public class Center {
 
     private static boolean isCorrectPassword(String personId, String password) {
         return persons.get(personId).getPassword().equals(password);
+    }
+
+    private static boolean isLibraryManager(String personId, String libraryId) {
+        if (persons.get(personId) instanceof Manager) {
+            Manager manager = (Manager)persons.get(personId);
+            return manager.getLibraryId().equals(libraryId);
+        }
+        return false;
+    }
+
+    private static boolean bookExists(Library library, String itemId) {
+        HashMap<String, Item> books = library.getItems();
+        return books.containsKey(itemId);
     }
 }
