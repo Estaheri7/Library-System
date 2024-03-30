@@ -18,7 +18,11 @@ public class Library {
     }
 
     public void addItem(Item newItem) {
-        items.put(newItem.getItemId(), newItem);
+        this.items.put(newItem.getItemId(), newItem);
+    }
+
+    public void removeItem(String itemId) {
+        this.items.remove(itemId);
     }
 
     public HashMap<String, Item> getItems() {
