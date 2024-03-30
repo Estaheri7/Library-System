@@ -19,4 +19,8 @@ public abstract class Item {
         this.categoryId = categoryId;
         this.libraryId = libraryId;
     }
+
+    public String getItemId() {
+        return this.itemId;
+    }
 }
