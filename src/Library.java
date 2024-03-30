@@ -20,4 +20,8 @@ public class Library {
     public void addItem(Item newItem) {
         items.put(newItem.getItemId(), newItem);
     }
+
+    public HashMap<String, Item> getItems() {
+        return this.items;
+    }
 }
