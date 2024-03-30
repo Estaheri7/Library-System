@@ -164,6 +164,12 @@ public class Center {
                 args[9]);
         return null;
     }
+
+    public static String addGanjineh(String[] args) {
+        TreasureBook tBook = new TreasureBook(args[3], args[4], args[5], args[6], args[7], args[8],
+                args[9], args[10]);
+        return null;
+    }
     private static void addStaff(String... args) {
         String role = args[7];
         if (role.equals("staff")) {
