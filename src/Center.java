@@ -153,6 +153,25 @@ public class Center {
         persons.put(args[0], student);
     }
 
+    private static void addStaff(String... args) {
+        String role = args[7];
+        if (role.equals("staff")) {
+            Staff staff = new Staff(args[0], args[1], args[2], args[3], args[4], args[5],
+                    args[6], args[7]);
+            persons.put(args[0], staff);
+        } else if (role.equals("professor")) {
+            Professor professor = new Professor(args[0], args[1], args[2], args[3], args[4], args[5],
+                    args[6], args[7]);
+            persons.put(args[0], professor);
+        }
+    }
+
+    private static void addManager(String... args) {
+        Manager manager = new Manager(args[0], args[1], args[2], args[3], args[4], args[5],
+                args[6], args[7]);
+        persons.put(args[0], manager);
+    }
+
     public static String addBook(String[] args) {
         NormalBook book = new NormalBook(args[3], args[4], args[5], args[6], args[7], Integer.parseInt(args[8]),
                 args[9], args[10]);
@@ -177,25 +196,6 @@ public class Center {
         return null;
     }
     
-    private static void addStaff(String... args) {
-        String role = args[7];
-        if (role.equals("staff")) {
-            Staff staff = new Staff(args[0], args[1], args[2], args[3], args[4], args[5],
-                    args[6], args[7]);
-            persons.put(args[0], staff);
-        } else if (role.equals("professor")) {
-            Professor professor = new Professor(args[0], args[1], args[2], args[3], args[4], args[5],
-                    args[6], args[7]);
-            persons.put(args[0], professor);
-        }
-    }
-
-    private static void addManager(String... args) {
-        Manager manager = new Manager(args[0], args[1], args[2], args[3], args[4], args[5],
-                args[6], args[7]);
-        persons.put(args[0], manager);
-    }
-
     private static boolean libraryExists(String key) {
         return libraries.containsKey(key);
     }
