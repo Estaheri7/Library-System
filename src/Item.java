@@ -23,4 +23,12 @@ public abstract class Item {
     public String getItemId() {
         return this.itemId;
     }
+
+    public String getCategoryId() {
+        return this.categoryId;
+    }
+
+    public String getLibraryId() {
+        return this.libraryId;
+    }
 }
