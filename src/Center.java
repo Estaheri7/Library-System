@@ -178,14 +178,13 @@ public class Center {
             return "not-found";
         }
 
-        Person person = persons.get(personId);
         Library library = libraries.get(item.getLibraryId());
 
         if (!isLibraryManager(personId, library.getLibraryId())) {
             return "permission-denied";
         }
 
-        if (!person.getPassword().equals(password)) {
+        if (!isCorrectPassword(personId, password)) {
             return "invalid-pass";
         }
 
@@ -194,6 +193,33 @@ public class Center {
         }
 
         library.addItem(item);
+        return "success";
+    }
+
+    // TODO - not-allowed statement.
+    public static String removeResource(String[] args) {
+        if (!libraryExists(args[4])) {
+            return "not-found";
+        }
+
+        Library library = libraries.get(args[4]);
+        if (!bookExists(library, args[3])) {
+            return "not-found";
+        }
+
+        if (!personExists(args[1])) {
+            return "not-found";
+        }
+
+        if (!isLibraryManager(args[1], args[4])) {
+            return "permission-denied";
+        }
+
+        if (!isCorrectPassword(args[1], args[2])) {
+            return "invalid-pass";
+        }
+
+        library.removeItem(args[3]);
         return "success";
     }
 
