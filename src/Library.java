@@ -24,4 +24,8 @@ public class Library {
     public HashMap<String, Item> getItems() {
         return this.items;
     }
+
+    public String getLibraryId() {
+        return this.libraryId;
+    }
 }
