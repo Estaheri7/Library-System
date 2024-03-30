@@ -195,7 +195,7 @@ public class Center {
                 args[9], args[10], args[11], args[12]);
         return null;
     }
-    
+
     private static boolean libraryExists(String key) {
         return libraries.containsKey(key);
     }
@@ -214,5 +214,13 @@ public class Center {
 
     private static boolean isCorrectPassword(String personId, String password) {
         return persons.get(personId).getPassword().equals(password);
+    }
+
+    private static boolean isLibraryManager(String personId, String libraryId) {
+        if (persons.get(personId) instanceof Manager) {
+            Manager manager = (Manager)persons.get(personId);
+            return manager.getLibraryId().equals(libraryId);
+        }
+        return false;
     }
 }
