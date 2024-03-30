@@ -16,4 +16,8 @@ public class Library {
         this.numberOfTables = numberOfTables;
         this.address = address;
     }
+
+    public void addItem(Item newItem) {
+        items.put(newItem.getItemId(), newItem);
+    }
 }
