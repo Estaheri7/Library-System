@@ -173,8 +173,13 @@ public class Center {
     }
 
     public static String addResource(Item item, String personId, String password) {
-        if (!categoryExists(item.getCategoryId()) || !libraryExists(item.getLibraryId())
-            || !personExists(personId)) {
+        if (!categoryExists(item.getCategoryId()) && !item.getCategoryId().equals("null")) {
+            return "not-found";
+        }
+        if (!libraryExists(item.getLibraryId())) {
+            return "not-found";
+        }
+        if (!personExists(personId)) {
             return "not-found";
         }
 
