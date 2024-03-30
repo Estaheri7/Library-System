@@ -17,6 +17,8 @@ public class TestParser {
             System.out.println(Center.addGanjineh(command));
         } else if (command[0].equals("add-seeling-book")) {
             System.out.println(Center.addSellingBook(command));
+        } else if (command[0].equals("remove-resource")) {
+            System.out.println(Center.removeResource(command));
         }
     }
 }
