@@ -155,6 +155,30 @@ public class Center {
         return "success";
     }
 
+    private static void addStudent(String... args) {
+        Student student = new Student(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
+        persons.put(args[0], student);
+    }
+
+    private static void addStaff(String... args) {
+        String role = args[7];
+        if (role.equals("staff")) {
+            Staff staff = new Staff(args[0], args[1], args[2], args[3], args[4], args[5],
+                    args[6], args[7]);
+            persons.put(args[0], staff);
+        } else if (role.equals("professor")) {
+            Professor professor = new Professor(args[0], args[1], args[2], args[3], args[4], args[5],
+                    args[6], args[7]);
+            persons.put(args[0], professor);
+        }
+    }
+
+    private static void addManager(String... args) {
+        Manager manager = new Manager(args[0], args[1], args[2], args[3], args[4], args[5],
+                args[6], args[7]);
+        persons.put(args[0], manager);
+    }
+
     private static boolean libraryExists(String key) {
         return libraries.containsKey(key);
     }
