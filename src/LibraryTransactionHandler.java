@@ -38,7 +38,8 @@ public class LibraryTransactionHandler {
         if (borrowable.isBorrowed()) {
             return "not-allowed";
         }
-        Borrow borrow = new Borrow(personId, libraryId, itemId, date, clock);
+        String fixedDate = Center.formatDate(date);
+        Borrow borrow = new Borrow(personId, libraryId, itemId, fixedDate, clock);
         person.borrow(itemId, borrow);
         borrowable.borrow();
         return "success";
