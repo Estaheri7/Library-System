@@ -4,6 +4,7 @@
  */
 public class NormalBook extends Item {
     private String publisher;
+    private boolean isBorrowed = false;
 
     /**
      * Constructs a new NormalBook object with the specified details.
@@ -21,5 +22,9 @@ public class NormalBook extends Item {
                       int copies, String categoryId, String libraryId) {
         super(itemId, title, authorName, year, copies, categoryId, libraryId);
         this.publisher = publisher;
+    }
+
+    public boolean isBorrowed() {
+        return this.isBorrowed;
     }
 }

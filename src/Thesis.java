@@ -2,8 +2,9 @@
  * The {@code Thesis} class represents a thesis item in the library system.
  * It extends the {@link Item} class, inheriting its attributes and methods.
  */
-public class Thesis extends Item {
+public class Thesis extends Item{
     private String advisorName;
+    private boolean isBorrowed = false;
 
     /**
      * Constructs a new Thesis object with the specified details.
@@ -20,5 +21,9 @@ public class Thesis extends Item {
                   String categoryId, String libraryId) {
         super(itemId, title, authorName, year, 1, categoryId, libraryId);
         this.advisorName = advisorName;
+    }
+
+    public boolean isBorrowed() {
+        return this.isBorrowed;
     }
 }
