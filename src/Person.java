@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * The {@code Person} class represents a person in the library system.
@@ -14,7 +14,7 @@ public abstract class Person {
     private String birthdate;
     private String address;
     private String role;
-    private HashMap<String, Borrow> borrows = new HashMap<>();
+    private ArrayList<Borrow> borrows = new ArrayList<>();
     private int borrowBucket = 0;
     private long debt = 0;
 
@@ -73,15 +73,16 @@ public abstract class Person {
     }
 
     public boolean borrowedThisItem(String itemId, String libraryId) {
-        Borrow borrow = this.borrows.get(itemId);
-        if (borrow != null) {
-            return borrow.getLibraryId().equals(libraryId);
+        for (Borrow borrow : this.borrows) {
+            if (borrow.getItemId().equals(itemId) && borrow.getLibraryId().equals(libraryId)) {
+                return true;
+            }
         }
         return false;
     }
 
-    public void borrow(String itemId, Borrow borrow) {
-        this.borrows.put(itemId, borrow);
+    public void borrow(Borrow borrow) {
+        this.borrows.add(borrow);
         this.borrowBucket++;
     }
 
