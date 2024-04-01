@@ -409,6 +409,14 @@ public class Center {
         return books.containsKey(itemId);
     }
 
+    public static String formatDate(String date) {
+        String[] parts = date.split("-");
+        if (parts[2].length() == 1) {
+            parts[2] = "0" + parts[2];
+        }
+        return String.join("-", parts);
+    }
+
     public static HashMap<String, Person> getPersons() {
         return persons;
     }
