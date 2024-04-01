@@ -82,5 +82,10 @@ public abstract class Person {
 
     public void borrow(String itemId, Borrow borrow) {
         this.borrows.put(itemId, borrow);
+        this.borrowBucket++;
+    }
+
+    public boolean hasBorrowed() {
+        return this.borrows.size() > 0;
     }
 }
