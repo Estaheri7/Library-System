@@ -73,4 +73,12 @@ public abstract class Item {
     public int getRemainder() {
         return this.remainder;
     }
+
+    public void decreaseRemainder() {
+        this.remainder--;
+    }
+
+    public void increaseRemainder() {
+        this.remainder++;
+    }
 }
