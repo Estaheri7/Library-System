@@ -19,4 +19,9 @@ public class Student extends Person {
                   String birthdate, String address) {
         super(personId, password, name, lastName, nationalCode, birthdate, address, "student");
     }
+
+    @Override
+    public boolean bucketIsFull() {
+        return this.getBorrowBucket() >= 3;
+    }
 }
