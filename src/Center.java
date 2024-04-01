@@ -159,6 +159,11 @@ public class Center {
             return "not-found";
         }
 
+        Person person = persons.get(personId);
+        if (person.hasDebt() || person.hasBorrowed()) {
+            return "not-allowed";
+        }
+
         if (!describeRole(adminId).equals("admin")) {
             return "permission-denied";
         }
@@ -280,6 +285,14 @@ public class Center {
 
         if (!isCorrectPassword(args[1], args[2])) {
             return "invalid-pass";
+        }
+
+        Item item = library.getItems().get(args[3]);
+        if (item.isBorrowable()) {
+            Borrowable borrowableItem = (Borrowable) item;
+            if (borrowableItem.isBorrowed()) {
+                return "not-allowed";
+            }
         }
 
         library.removeItem(args[3]);
