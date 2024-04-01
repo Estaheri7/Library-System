@@ -23,10 +23,15 @@ public class Thesis extends Item implements Borrowable {
         this.advisorName = advisorName;
     }
 
+    @Override
     public boolean isBorrowed() {
         return this.isBorrowed;
     }
 
+    @Override
+    public boolean canBorrow() {
+        return !this.isBorrowed;
+    }
     @Override
     public void borrow() {
         this.isBorrowed = true;
