@@ -16,6 +16,7 @@ public abstract class Person {
     private String role;
     private HashMap<String, Borrow> borrows = new HashMap<>();
     private int borrowBucket = 0;
+    private long debt = 0;
 
     /**
      * Constructs a new Person object with the specified details.
@@ -65,5 +66,17 @@ public abstract class Person {
 
     public int getBorrowBucket() {
         return this.borrowBucket;
+    }
+
+    public boolean hasDebt() {
+        return this.debt != 0;
+    }
+
+    public boolean borrowedThisItem(String itemId, String libraryId) {
+        Borrow borrow = this.borrows.get(itemId);
+        if (borrow != null) {
+            return borrow.getLibraryId().equals(libraryId);
+        }
+        return false;
     }
 }
