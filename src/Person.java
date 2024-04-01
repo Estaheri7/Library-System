@@ -14,8 +14,8 @@ public abstract class Person {
     private String birthdate;
     private String address;
     private String role;
-
     private HashMap<String, Borrow> borrows = new HashMap<>();
+    private int borrowBucket = 0;
 
     /**
      * Constructs a new Person object with the specified details.
@@ -57,5 +57,13 @@ public abstract class Person {
      */
     public String getRole() {
         return this.role;
+    }
+
+    public boolean bucketIsFull() {
+        return this.borrowBucket >= 5;
+    }
+
+    public int getBorrowBucket() {
+        return this.borrowBucket;
     }
 }
