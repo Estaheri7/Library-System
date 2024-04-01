@@ -13,4 +13,8 @@ public class Borrow {
         String fullDate = date + "T" + clock;
         this.borrowTime = LocalDateTime.parse(fullDate);
     }
+
+    public String getLibraryId() {
+        return this.libraryId;
+    }
 }
