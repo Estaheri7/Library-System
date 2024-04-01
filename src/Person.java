@@ -79,4 +79,8 @@ public abstract class Person {
         }
         return false;
     }
+
+    public void borrow(String itemId, Borrow borrow) {
+        this.borrows.put(itemId, borrow);
+    }
 }
