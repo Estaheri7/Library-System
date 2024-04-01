@@ -4,7 +4,6 @@
  */
 public class NormalBook extends Item implements Borrowable {
     private String publisher;
-    private boolean isBorrowed = false;
 
     /**
      * Constructs a new NormalBook object with the specified details.
@@ -24,21 +23,22 @@ public class NormalBook extends Item implements Borrowable {
         this.publisher = publisher;
     }
 
+    @Override
     public boolean isBorrowed() {
-        return this.isBorrowed;
+        return this.getCopies() > this.getRemainder();
     }
 
     @Override
+    public boolean canBorrow() {
+        return this.getRemainder() != 0;
+    }
+    @Override
     public void borrow() {
-        if (this.getRemainder() == 0) {
-            this.isBorrowed = true;
-        } else {
-            this.decreaseRemainder();
-        }
+        this.decreaseRemainder();
     }
 
     @Override
     public void returnItem() {
-        this.isBorrowed = false;
+
     }
 }
