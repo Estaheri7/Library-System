@@ -35,7 +35,7 @@ public class LibraryTransactionHandler {
         }
 
         Borrowable borrowable = (Borrowable) item;
-        if (borrowable.isBorrowed()) {
+        if (!borrowable.canBorrow()) {
             return "not-allowed";
         }
         String fixedDate = Center.formatDate(date);
