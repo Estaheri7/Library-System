@@ -65,4 +65,12 @@ public abstract class Item {
     public boolean isBorrowable() {
         return this instanceof Borrowable;
     }
+
+    public int getCopies() {
+        return this.copies;
+    }
+
+    public int getRemainder() {
+        return this.remainder;
+    }
 }
