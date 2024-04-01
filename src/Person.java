@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * The {@code Person} class represents a person in the library system.
  * It is an abstract class that serves as the superclass for various types of persons,
@@ -12,6 +14,8 @@ public abstract class Person {
     private String birthdate;
     private String address;
     private String role;
+
+    private HashMap<String, Borrow> borrows = new HashMap<>();
 
     /**
      * Constructs a new Person object with the specified details.
