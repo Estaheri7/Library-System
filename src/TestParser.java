@@ -19,6 +19,8 @@ public class TestParser {
             System.out.println(Center.addSellingBook(command));
         } else if (command[0].equals("remove-resource")) {
             System.out.println(Center.removeResource(command));
+        } else if (command[0].equals("borrow")) {
+            System.out.println(LibraryTransactionHandler.borrowItem(command));
         }
     }
 }
