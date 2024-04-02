@@ -28,4 +28,8 @@ public class PurchasableBook extends Item {
         this.price = price;
         this.discount = discount;
     }
+
+    public boolean isSoldOut() {
+        return this.getRemainder() == 0;
+    }
 }
