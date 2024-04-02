@@ -159,11 +159,6 @@ public class Center {
             return "not-found";
         }
 
-        Person person = persons.get(personId);
-        if (person.hasDebt() || person.hasBorrowed()) {
-            return "not-allowed";
-        }
-
         if (!describeRole(adminId).equals("admin")) {
             return "permission-denied";
         }
@@ -174,6 +169,11 @@ public class Center {
 
         if (!personExists(personId)) {
             return "not-found";
+        }
+
+        Person person = persons.get(personId);
+        if (person.hasDebt() || person.hasBorrowed()) {
+            return "not-allowed";
         }
 
         persons.remove(personId);
