@@ -83,6 +83,15 @@ public abstract class Person {
         return false;
     }
 
+    public Borrow getBorrow(String itemId, String libraryId) {
+        for (Borrow borrow : this.borrows) {
+            if (borrow.getItemId().equals(itemId) && borrow.getLibraryId().equals(libraryId)) {
+                return borrow;
+            }
+        }
+        return null;
+    }
+
     public void borrow(Borrow borrow) {
         this.borrows.add(borrow);
         this.borrowBucket++;
