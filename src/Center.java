@@ -159,6 +159,11 @@ public class Center {
             return "not-found";
         }
 
+        Person person = persons.get(personId);
+        if (person.hasDebt() || person.hasBorrowed()) {
+            return "not-allowed";
+        }
+
         if (!describeRole(adminId).equals("admin")) {
             return "permission-denied";
         }
@@ -282,6 +287,14 @@ public class Center {
             return "invalid-pass";
         }
 
+        Item item = library.getItems().get(args[3]);
+        if (item.isBorrowable()) {
+            Borrowable borrowableItem = (Borrowable) item;
+            if (borrowableItem.isBorrowed()) {
+                return "not-allowed";
+            }
+        }
+
         library.removeItem(args[3]);
         return "success";
     }
@@ -343,7 +356,7 @@ public class Center {
      * @param key The ID of the library to check.
      * @return {@code true} if the library exists, {@code false} otherwise.
      */
-    private static boolean libraryExists(String key) {
+    public static boolean libraryExists(String key) {
         return libraries.containsKey(key);
     }
 
@@ -361,7 +374,7 @@ public class Center {
      * @param key The ID of the person to check.
      * @return {@code true} if the person exists, {@code false} otherwise.
      */
-    private static boolean personExists(String key) {
+    public static boolean personExists(String key) {
         return persons.containsKey(key);
     }
 
@@ -380,7 +393,7 @@ public class Center {
      * @param password The password to check.
      * @return {@code true} if the password is correct, {@code false} otherwise.
      */
-    private static boolean isCorrectPassword(String personId, String password) {
+    public static boolean isCorrectPassword(String personId, String password) {
         return persons.get(personId).getPassword().equals(password);
     }
 
@@ -404,8 +417,28 @@ public class Center {
      * @param itemId The ID of the book to check.
      * @return {@code true} if the book exists, {@code false} otherwise.
      */
-    private static boolean bookExists(Library library, String itemId) {
+    public static boolean bookExists(Library library, String itemId) {
         HashMap<String, Item> books = library.getItems();
         return books.containsKey(itemId);
+    }
+
+    public static String formatDate(String date) {
+        String[] parts = date.split("-");
+        if (parts[2].length() == 1) {
+            parts[2] = "0" + parts[2];
+        }
+        return String.join("-", parts);
+    }
+
+    public static HashMap<String, Person> getPersons() {
+        return persons;
+    }
+
+    public static HashMap<String, Library> getLibraries() {
+        return libraries;
+    }
+
+    public static HashMap<String, Category> getCategories() {
+        return categories;
     }
 }

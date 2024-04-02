@@ -61,4 +61,24 @@ public abstract class Item {
     public String getLibraryId() {
         return this.libraryId;
     }
+
+    public boolean isBorrowable() {
+        return this instanceof Borrowable;
+    }
+
+    public int getCopies() {
+        return this.copies;
+    }
+
+    public int getRemainder() {
+        return this.remainder;
+    }
+
+    public void decreaseRemainder() {
+        this.remainder--;
+    }
+
+    public void increaseRemainder() {
+        this.remainder++;
+    }
 }
