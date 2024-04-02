@@ -111,6 +111,38 @@ public class LibraryTransactionHandler {
         return "success";
     }
 
+    public String read() {
+        if (this.notFound()) {
+            return "not-found";
+        }
+
+        Library library = Center.getLibraries().get(this.libraryId);
+        Person person = Center.getPersons().get(this.personId);
+        if (!Center.isCorrectPassword(this.personId, this.password)) {
+            return "invalid-pass";
+        }
+
+        if (!Center.describeRole(this.personId).equals("professor")) {
+            return "permission-denied";
+        }
+
+        Item item = library.getItems().get(this.itemId);
+        if (!item.isTreasure()) {
+            return "not-allowed";
+        }
+
+        TreasureBook treasureBook = (TreasureBook) item;
+        String fixedDate = Center.formatDate(this.date);
+        String newTimeString = fixedDate + "T" + this.clock;
+        LocalDateTime newTime = LocalDateTime.parse(newTimeString);
+        if (!treasureBook.isReadable(newTime) || person.hasDebt() || person.bucketIsFull()) {
+            return "not-allowed";
+        }
+
+        treasureBook.read(newTime);
+        return "success";
+    }
+
     public boolean notFound() {
         if (!Center.libraryExists(this.libraryId) || !Center.personExists(this.personId)) {
             return true;
