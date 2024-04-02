@@ -81,4 +81,8 @@ public abstract class Item {
     public void increaseRemainder() {
         this.remainder++;
     }
+
+    public boolean isPurchasable() {
+        return this instanceof PurchasableBook;
+    }
 }
