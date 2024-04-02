@@ -26,7 +26,14 @@ public class TreasureBook extends Item {
     }
 
     public boolean isReadable(LocalDateTime newTime) {
-        long hourBetween = ChronoUnit.HOURS.between(this.currentTime, newTime);
-        return Math.abs(hourBetween) >= 2;
+        long hourBetween = 0;
+        if (this.currentTime != null) {
+            hourBetween = ChronoUnit.HOURS.between(this.currentTime, newTime);
+        }
+        return Math.abs(hourBetween) >= 2 || (this.currentTime == null);
+    }
+
+    public void read(LocalDateTime readTime) {
+        this.currentTime = readTime;
     }
 }
