@@ -107,4 +107,9 @@ public abstract class Person {
 
         return debt;
     }
+
+    public void returnItem(Borrow borrow) {
+        this.borrows.remove(borrow);
+        this.borrowBucket--;
+    }
 }
