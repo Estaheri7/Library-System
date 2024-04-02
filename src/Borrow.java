@@ -21,4 +21,8 @@ public class Borrow {
     public String getItemId() {
         return this.itemId;
     }
+
+    public LocalDateTime getBorrowTime() {
+        return this.borrowTime;
+    }
 }
