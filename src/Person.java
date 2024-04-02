@@ -18,7 +18,7 @@ public abstract class Person {
     private String role;
     private ArrayList<Borrow> borrows = new ArrayList<>();
     private int borrowBucket = 0;
-    private long debt = 0;
+    protected long debt = 0;
 
     /**
      * Constructs a new Person object with the specified details.
