@@ -85,4 +85,8 @@ public abstract class Item {
     public boolean isPurchasable() {
         return this instanceof PurchasableBook;
     }
+
+    public boolean isTreasure() {
+        return this instanceof TreasureBook;
+    }
 }
