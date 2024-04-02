@@ -39,6 +39,6 @@ public class NormalBook extends Item implements Borrowable {
 
     @Override
     public void returnItem() {
-
+        this.increaseRemainder();
     }
 }
