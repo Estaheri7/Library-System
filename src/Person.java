@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
@@ -88,5 +90,21 @@ public abstract class Person {
 
     public boolean hasBorrowed() {
         return this.borrows.size() > 0;
+    }
+
+    public long debtForReturn(LocalDateTime borrowDateTime, LocalDateTime returnDateTime, Item item) {
+        long hourBetween = ChronoUnit.HOURS.between(borrowDateTime, returnDateTime);
+
+        if (item instanceof NormalBook) {
+            if (hourBetween > 14 * 24) {
+                this.debt += (hourBetween - 14 * 24) * 100;
+            }
+        } else if (item instanceof Thesis) {
+            if (hourBetween > 10 * 24) {
+                this.debt += (hourBetween - 10 * 14) * 100;
+            }
+        }
+
+        return debt;
     }
 }
