@@ -83,6 +83,34 @@ public class LibraryTransactionHandler {
         }
     }
 
+    public String buy() {
+        if (this.notFound()) {
+            return "not-found";
+        }
+
+        Library library = Center.getLibraries().get(this.libraryId);
+        Person person = Center.getPersons().get(this.personId);
+        if (!Center.isCorrectPassword(this.personId, this.password)) {
+            return "invalid-pass";
+        }
+
+        Item item = library.getItems().get(this.itemId);
+        if (!item.isPurchasable()) {
+            return "not-allowed";
+        }
+        PurchasableBook purchasableBook = (PurchasableBook) item;
+        if (purchasableBook.isSoldOut() || person.hasDebt() || person.bucketIsFull()) {
+            return "not-allowed";
+        }
+
+        if (Center.describeRole(this.personId).equals("manager")) {
+            return "permission-denied";
+        }
+
+        purchasableBook.sell();
+        return "success";
+    }
+
     public boolean notFound() {
         if (!Center.libraryExists(this.libraryId) || !Center.personExists(this.personId)) {
             return true;
