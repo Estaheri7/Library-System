@@ -31,6 +31,10 @@ public class TestParser {
             LibraryTransactionHandler libraryTransactionHandler = new LibraryTransactionHandler(command[1],
                     command[2], command[3], command[4], "-", "-");
             System.out.println(libraryTransactionHandler.buy());
+        } else if (command[0].equals("read")) {
+            LibraryTransactionHandler libraryTransactionHandler = new LibraryTransactionHandler(command[1],
+                    command[2], command[3], command[4], command[5], command[6]);
+            System.out.println(libraryTransactionHandler.read());
         }
     }
 }
