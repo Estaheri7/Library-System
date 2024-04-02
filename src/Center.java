@@ -159,11 +159,6 @@ public class Center {
             return "not-found";
         }
 
-        Person person = persons.get(personId);
-        if (person.hasDebt() || person.hasBorrowed()) {
-            return "not-allowed";
-        }
-
         if (!describeRole(adminId).equals("admin")) {
             return "permission-denied";
         }
@@ -174,6 +169,11 @@ public class Center {
 
         if (!personExists(personId)) {
             return "not-found";
+        }
+
+        Person person = persons.get(personId);
+        if (person.hasDebt() || person.hasBorrowed()) {
+            return "not-allowed";
         }
 
         persons.remove(personId);
@@ -383,7 +383,7 @@ public class Center {
      * @param personId The ID of the person.
      * @return The role of the person as a {@code String}.
      */
-    private static String describeRole(String personId) {
+    public static String describeRole(String personId) {
         return persons.get(personId).getRole();
     }
 
@@ -403,7 +403,7 @@ public class Center {
      * @param libraryId The ID of the library.
      * @return {@code true} if the person is a manager of the library, {@code false} otherwise.
      */
-    private static boolean isLibraryManager(String personId, String libraryId) {
+    public static boolean isLibraryManager(String personId, String libraryId) {
         if (persons.get(personId) instanceof Manager) {
             Manager manager = (Manager)persons.get(personId);
             return manager.getLibraryId().equals(libraryId);

@@ -32,6 +32,7 @@ public class NormalBook extends Item implements Borrowable {
     public boolean canBorrow() {
         return this.getRemainder() != 0;
     }
+
     @Override
     public void borrow() {
         this.decreaseRemainder();

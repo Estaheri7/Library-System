@@ -32,6 +32,7 @@ public class Thesis extends Item implements Borrowable {
     public boolean canBorrow() {
         return !this.isBorrowed;
     }
+
     @Override
     public void borrow() {
         this.isBorrowed = true;

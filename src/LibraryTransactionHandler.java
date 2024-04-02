@@ -22,15 +22,11 @@ public class LibraryTransactionHandler {
     }
 
     public String borrowItem() {
-        if (!Center.libraryExists(this.libraryId) || !Center.personExists(this.personId)) {
+        if(this.notFound()) {
             return "not-found";
         }
 
         Library library = Center.getLibraries().get(this.libraryId);
-        if (!Center.bookExists(library, this.itemId)) {
-            return "not-found";
-        }
-
         Person person = Center.getPersons().get(this.personId);
         if (!Center.isCorrectPassword(this.personId, this.password)) {
             return "invalid-pass";
@@ -57,15 +53,11 @@ public class LibraryTransactionHandler {
     }
 
     public String returnItem() {
-        if (!Center.libraryExists(this.libraryId) || !Center.personExists(this.personId)) {
+        if(this.notFound()) {
             return "not-found";
         }
 
         Library library = Center.getLibraries().get(this.libraryId);
-        if (!Center.bookExists(library, this.itemId)) {
-            return "not-found";
-        }
-
         Person person = Center.getPersons().get(this.personId);
         if (!person.borrowedThisItem(this.itemId, this.libraryId)) {
             return "not-found";
@@ -89,5 +81,78 @@ public class LibraryTransactionHandler {
         } else {
             return "" + debt;
         }
+    }
+
+    public String buy() {
+        if (this.notFound()) {
+            return "not-found";
+        }
+
+        Library library = Center.getLibraries().get(this.libraryId);
+        Person person = Center.getPersons().get(this.personId);
+        if (!Center.isCorrectPassword(this.personId, this.password)) {
+            return "invalid-pass";
+        }
+
+        Item item = library.getItems().get(this.itemId);
+        if (!item.isPurchasable()) {
+            return "not-allowed";
+        }
+        PurchasableBook purchasableBook = (PurchasableBook) item;
+        if (purchasableBook.isSoldOut() || person.hasDebt() || person.bucketIsFull()) {
+            return "not-allowed";
+        }
+
+        if (Center.describeRole(this.personId).equals("manager")) {
+            return "permission-denied";
+        }
+
+        purchasableBook.sell();
+        return "success";
+    }
+
+    public String read() {
+        if (this.notFound()) {
+            return "not-found";
+        }
+
+        Library library = Center.getLibraries().get(this.libraryId);
+        Person person = Center.getPersons().get(this.personId);
+        if (!Center.isCorrectPassword(this.personId, this.password)) {
+            return "invalid-pass";
+        }
+
+        if (!Center.describeRole(this.personId).equals("professor")) {
+            return "permission-denied";
+        }
+
+        Item item = library.getItems().get(this.itemId);
+        if (!item.isTreasure()) {
+            return "not-allowed";
+        }
+
+        TreasureBook treasureBook = (TreasureBook) item;
+        String fixedDate = Center.formatDate(this.date);
+        String newTimeString = fixedDate + "T" + this.clock;
+        LocalDateTime newTime = LocalDateTime.parse(newTimeString);
+        if (!treasureBook.isReadable(newTime) || person.hasDebt() || person.bucketIsFull()) {
+            return "not-allowed";
+        }
+
+        treasureBook.read(newTime);
+        return "success";
+    }
+
+    public boolean notFound() {
+        if (!Center.libraryExists(this.libraryId) || !Center.personExists(this.personId)) {
+            return true;
+        }
+
+        Library library = Center.getLibraries().get(this.libraryId);
+        if (!Center.bookExists(library, this.itemId)) {
+            return true;
+        }
+
+        return false;
     }
 }
