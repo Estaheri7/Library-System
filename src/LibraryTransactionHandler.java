@@ -22,15 +22,11 @@ public class LibraryTransactionHandler {
     }
 
     public String borrowItem() {
-        if (!Center.libraryExists(this.libraryId) || !Center.personExists(this.personId)) {
+        if(this.notFound()) {
             return "not-found";
         }
 
         Library library = Center.getLibraries().get(this.libraryId);
-        if (!Center.bookExists(library, this.itemId)) {
-            return "not-found";
-        }
-
         Person person = Center.getPersons().get(this.personId);
         if (!Center.isCorrectPassword(this.personId, this.password)) {
             return "invalid-pass";
@@ -57,15 +53,11 @@ public class LibraryTransactionHandler {
     }
 
     public String returnItem() {
-        if (!Center.libraryExists(this.libraryId) || !Center.personExists(this.personId)) {
+        if(this.notFound()) {
             return "not-found";
         }
 
         Library library = Center.getLibraries().get(this.libraryId);
-        if (!Center.bookExists(library, this.itemId)) {
-            return "not-found";
-        }
-
         Person person = Center.getPersons().get(this.personId);
         if (!person.borrowedThisItem(this.itemId, this.libraryId)) {
             return "not-found";
@@ -89,5 +81,18 @@ public class LibraryTransactionHandler {
         } else {
             return "" + debt;
         }
+    }
+
+    public boolean notFound() {
+        if (!Center.libraryExists(this.libraryId) || !Center.personExists(this.personId)) {
+            return true;
+        }
+
+        Library library = Center.getLibraries().get(this.libraryId);
+        if (!Center.bookExists(library, this.itemId)) {
+            return true;
+        }
+
+        return false;
     }
 }
