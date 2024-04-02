@@ -32,4 +32,8 @@ public class PurchasableBook extends Item {
     public boolean isSoldOut() {
         return this.getRemainder() == 0;
     }
+
+    public void sell() {
+        this.decreaseRemainder();
+    }
 }
