@@ -1,6 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 public class TreasureBook extends Item {
     private String publisher;
     private String donateName;
+    private LocalDateTime currentTime;
 
     /**
      * Constructs a new TreasureBook object with the specified details.
@@ -19,5 +23,10 @@ public class TreasureBook extends Item {
         super(itemId, title, authorName, year, 1, categoryId, libraryId);
         this.publisher = publisher;
         this.donateName = donateName;
+    }
+
+    public boolean isReadable(LocalDateTime newTime) {
+        long hourBetween = ChronoUnit.HOURS.between(this.currentTime, newTime);
+        return Math.abs(hourBetween) >= 2;
     }
 }
