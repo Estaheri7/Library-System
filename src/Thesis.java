@@ -23,21 +23,37 @@ public class Thesis extends Item implements Borrowable {
         this.advisorName = advisorName;
     }
 
+    /**
+     * Checks if the item is currently borrowed.
+     *
+     * @return {@code true} if the item is currently borrowed, {@code false} otherwise.
+     */
     @Override
     public boolean isBorrowed() {
         return this.isBorrowed;
     }
 
+    /**
+     * Checks if the item can be borrowed.
+     *
+     * @return {@code true} if the item can be borrowed, {@code false} if it is already borrowed.
+     */
     @Override
     public boolean canBorrow() {
         return !this.isBorrowed;
     }
 
+    /**
+     * Marks the item as borrowed.
+     */
     @Override
     public void borrow() {
         this.isBorrowed = true;
     }
 
+    /**
+     * Marks the item as returned.
+     */
     @Override
     public void returnItem() {
         this.isBorrowed = false;

@@ -2,6 +2,10 @@ import java.security.cert.CertificateEncodingException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * The {@code LibraryTransactionHandler} class handles transactions related to library operations,
+ * such as borrowing, returning, buying, and reading items.
+ */
 public class LibraryTransactionHandler {
     private static ArrayList<Borrow> borrows = new ArrayList<>();
     private String personId;
@@ -13,7 +17,17 @@ public class LibraryTransactionHandler {
     private Library library;
     private Person person;
     private Item item;
-    
+
+    /**
+     * Constructs a {@code LibraryTransactionHandler} object with the specified details.
+     *
+     * @param personId   The ID of the person performing the transaction.
+     * @param password   The password of the person.
+     * @param libraryId  The ID of the library involved in the transaction.
+     * @param itemId     The ID of the item involved in the transaction.
+     * @param date       The date of the transaction.
+     * @param clock      The time of the transaction.
+     */
     public LibraryTransactionHandler(String personId, String password, String libraryId, String itemId,
                                      String date, String clock) {
         this.personId = personId;
@@ -24,6 +38,11 @@ public class LibraryTransactionHandler {
         this.clock = clock;
     }
 
+    /**
+     * Handles borrowing an item from the library.
+     *
+     * @return A string indicating the result of the borrowing operation.
+     */
     public String borrowItem() {
         if(this.notFound()) {
             return "not-found";
@@ -52,6 +71,11 @@ public class LibraryTransactionHandler {
         return "success";
     }
 
+    /**
+     * Handles returning an item to the library.
+     *
+     * @return A string indicating the result of the return operation.
+     */
     public String returnItem() {
         if(this.notFound()) {
             return "not-found";
@@ -80,6 +104,11 @@ public class LibraryTransactionHandler {
         }
     }
 
+    /**
+     * Handles purchasing an item from the library.
+     *
+     * @return A string indicating the result of the purchase operation.
+     */
     public String buy() {
         if (this.notFound()) {
             return "not-found";
@@ -105,6 +134,11 @@ public class LibraryTransactionHandler {
         return "success";
     }
 
+    /**
+     * Handles reading a treasure book from the library.
+     *
+     * @return A string indicating the result of the reading operation.
+     */
     public String read() {
         if (this.notFound()) {
             return "not-found";
@@ -134,6 +168,11 @@ public class LibraryTransactionHandler {
         return "success";
     }
 
+    /**
+     * Checks if the library, person, or item involved in the transaction exists.
+     *
+     * @return {@code true} if any of the entities is not found, {@code false} otherwise.
+     */
     public boolean notFound() {
         if (!Center.libraryExists(this.libraryId) || !Center.personExists(this.personId)) {
             return true;

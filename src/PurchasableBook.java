@@ -29,10 +29,18 @@ public class PurchasableBook extends Item {
         this.discount = discount;
     }
 
+    /**
+     * Checks if the book is sold out.
+     *
+     * @return {@code true} if the book is sold out, {@code false} otherwise.
+     */
     public boolean isSoldOut() {
         return this.getRemainder() == 0;
     }
 
+    /**
+     * Decreases the number of remaining copies when a book is sold.
+     */
     public void sell() {
         this.decreaseRemainder();
     }

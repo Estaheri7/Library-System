@@ -23,11 +23,24 @@ public class Student extends Person {
         super(personId, password, name, lastName, nationalCode, birthdate, address, "student");
     }
 
+    /**
+     * Checks if the borrow bucket is full.
+     *
+     * @return {@code true} if the borrow bucket is full, {@code false} otherwise.
+     */
     @Override
     public boolean bucketIsFull() {
         return this.getBorrowBucket() >= 3;
     }
 
+    /**
+     * Calculates the debt incurred for returning an item after borrowing.
+     *
+     * @param borrowDateTime  The date and time when the item was borrowed.
+     * @param returnDateTime  The date and time when the item was returned.
+     * @param item            The item being returned.
+     * @return                The calculated debt for returning the item.
+     */
     @Override
     public long debtForReturn(LocalDateTime borrowDateTime, LocalDateTime returnDateTime, Item item) {
         long hourBetween = ChronoUnit.HOURS.between(borrowDateTime, returnDateTime);

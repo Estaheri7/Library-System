@@ -23,21 +23,37 @@ public class NormalBook extends Item implements Borrowable {
         this.publisher = publisher;
     }
 
+    /**
+     * Checks if the book is currently borrowed.
+     *
+     * @return {@code true} if the book is currently borrowed, {@code false} otherwise.
+     */
     @Override
     public boolean isBorrowed() {
         return this.getCopies() > this.getRemainder();
     }
 
+    /**
+     * Checks if the book can be borrowed.
+     *
+     * @return {@code true} if the book can be borrowed, {@code false} otherwise.
+     */
     @Override
     public boolean canBorrow() {
         return this.getRemainder() != 0;
     }
 
+    /**
+     * Marks the book as borrowed by decreasing the remaining copies count.
+     */
     @Override
     public void borrow() {
         this.decreaseRemainder();
     }
 
+    /**
+     * Marks the book as returned by increasing the remaining copies count.
+     */
     @Override
     public void returnItem() {
         this.increaseRemainder();
