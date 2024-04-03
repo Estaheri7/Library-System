@@ -1,6 +1,10 @@
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * The {@code TreasureBook} class represents a treasure book item in the library system.
+ * It extends the {@link Item} class, inheriting its attributes and methods.
+ */
 public class TreasureBook extends Item {
     private String publisher;
     private String donateName;
@@ -25,6 +29,12 @@ public class TreasureBook extends Item {
         this.donateName = donateName;
     }
 
+    /**
+     * Checks if the treasure book is readable based on the time since it was last read.
+     *
+     * @param newTime The current time.
+     * @return {@code true} if the treasure book is readable, {@code false} otherwise.
+     */
     public boolean isReadable(LocalDateTime newTime) {
         long hourBetween = 0;
         if (this.currentTime != null) {
@@ -33,6 +43,11 @@ public class TreasureBook extends Item {
         return Math.abs(hourBetween) >= 2 || (this.currentTime == null);
     }
 
+    /**
+     * Marks the treasure book as read at the specified time.
+     *
+     * @param readTime The time at which the treasure book is read.
+     */
     public void read(LocalDateTime readTime) {
         this.currentTime = readTime;
     }

@@ -422,6 +422,13 @@ public class Center {
         return books.containsKey(itemId);
     }
 
+    /**
+     * Formats the given date string to ensure that the day portion has two digits.
+     * If the day portion has only one digit, it prefixes it with a "0".
+     *
+     * @param date The date string to be formatted (in the format "yyyy-MM-dd").
+     * @return The formatted date string.
+     */
     public static String formatDate(String date) {
         String[] parts = date.split("-");
         if (parts[2].length() == 1) {
@@ -430,14 +437,29 @@ public class Center {
         return String.join("-", parts);
     }
 
+    /**
+     * Retrieves the map of persons stored in the library system.
+     *
+     * @return The map of persons, where the keys are person IDs and the values are person objects.
+     */
     public static HashMap<String, Person> getPersons() {
         return persons;
     }
 
+    /**
+     * Retrieves the map of libraries stored in the library system.
+     *
+     * @return The map of libraries, where the keys are library IDs and the values are library objects.
+     */
     public static HashMap<String, Library> getLibraries() {
         return libraries;
     }
 
+    /**
+     * Retrieves the map of categories stored in the library system.
+     *
+     * @return The map of categories, where the keys are category IDs and the values are category objects.
+     */
     public static HashMap<String, Category> getCategories() {
         return categories;
     }

@@ -62,30 +62,61 @@ public abstract class Item {
         return this.libraryId;
     }
 
+    /**
+     * Checks if the item is borrowable.
+     *
+     * @return {@code true} if the item is an instance of a borrowable item, {@code false} otherwise.
+     */
     public boolean isBorrowable() {
         return this instanceof Borrowable;
     }
 
+    /**
+     * Retrieves the total number of copies of the item.
+     *
+     * @return The total number of copies of the item.
+     */
     public int getCopies() {
         return this.copies;
     }
 
+    /**
+     * Retrieves the number of remaining copies of the item.
+     *
+     * @return The number of remaining copies of the item.
+     */
     public int getRemainder() {
         return this.remainder;
     }
 
+    /**
+     * Decreases the number of remaining copies of the item by one.
+     */
     public void decreaseRemainder() {
         this.remainder--;
     }
 
+    /**
+     * Increases the number of remaining copies of the item by one.
+     */
     public void increaseRemainder() {
         this.remainder++;
     }
 
+    /**
+     * Checks if the item is purchasable.
+     *
+     * @return {@code true} if the item is an instance of a purchasable book, {@code false} otherwise.
+     */
     public boolean isPurchasable() {
         return this instanceof PurchasableBook;
     }
 
+    /**
+     * Checks if the item is a treasure book.
+     *
+     * @return {@code true} if the item is an instance of a treasure book, {@code false} otherwise.
+     */
     public boolean isTreasure() {
         return this instanceof TreasureBook;
     }

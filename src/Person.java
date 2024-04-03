@@ -62,18 +62,40 @@ public abstract class Person {
         return this.role;
     }
 
+    /**
+     * Checks if the borrow bucket is full.
+     *
+     * @return {@code true} if the borrow bucket is full, {@code false} otherwise.
+     */
     public boolean bucketIsFull() {
         return this.borrowBucket >= 5;
     }
 
+    /**
+     * Retrieves the current borrow bucket count.
+     *
+     * @return The number of items currently borrowed by the person.
+     */
     public int getBorrowBucket() {
         return this.borrowBucket;
     }
 
+    /**
+     * Checks if the person has any debt.
+     *
+     * @return {@code true} if the person has debt, {@code false} otherwise.
+     */
     public boolean hasDebt() {
         return this.debt != 0;
     }
 
+    /**
+     * Checks if the person has borrowed the specified item from the given library.
+     *
+     * @param itemId     The ID of the item.
+     * @param libraryId  The ID of the library.
+     * @return {@code true} if the person has borrowed the item, {@code false} otherwise.
+     */
     public boolean borrowedThisItem(String itemId, String libraryId) {
         for (Borrow borrow : this.borrows) {
             if (borrow.getItemId().equals(itemId) && borrow.getLibraryId().equals(libraryId)) {
@@ -83,6 +105,13 @@ public abstract class Person {
         return false;
     }
 
+    /**
+     * Retrieves the borrow object associated with the specified item and library, if any.
+     *
+     * @param itemId     The ID of the item.
+     * @param libraryId  The ID of the library.
+     * @return The borrow object associated with the item and library, or {@code null} if not found.
+     */
     public Borrow getBorrow(String itemId, String libraryId) {
         for (Borrow borrow : this.borrows) {
             if (borrow.getItemId().equals(itemId) && borrow.getLibraryId().equals(libraryId)) {
@@ -92,15 +121,33 @@ public abstract class Person {
         return null;
     }
 
+    /**
+     * Borrows an item and adds it to the person's borrow history.
+     *
+     * @param borrow The borrow object representing the item to be borrowed.
+     */
     public void borrow(Borrow borrow) {
         this.borrows.add(borrow);
         this.borrowBucket++;
     }
 
+    /**
+     * Checks if the person has borrowed any items.
+     *
+     * @return {@code true} if the person has borrowed any items, {@code false} otherwise.
+     */
     public boolean hasBorrowed() {
         return this.borrows.size() > 0;
     }
 
+    /**
+     * Calculates the debt incurred for returning a borrowed item after a specified duration.
+     *
+     * @param borrowDateTime The date and time when the item was borrowed.
+     * @param returnDateTime The date and time when the item was returned.
+     * @param item           The item for which the debt is calculated.
+     * @return The amount of debt incurred for the late return of the item.
+     */
     public long debtForReturn(LocalDateTime borrowDateTime, LocalDateTime returnDateTime, Item item) {
         long hourBetween = ChronoUnit.HOURS.between(borrowDateTime, returnDateTime);
 
@@ -117,6 +164,11 @@ public abstract class Person {
         return debt;
     }
 
+    /**
+     * Returns a borrowed item and removes it from the person's borrow history.
+     *
+     * @param borrow The borrow object representing the item to be returned.
+     */
     public void returnItem(Borrow borrow) {
         this.borrows.remove(borrow);
         this.borrowBucket--;
