@@ -10,7 +10,10 @@ public class LibraryTransactionHandler {
     private String itemId;
     private String date;
     private String clock;
-
+    private Library library;
+    private Person person;
+    private Item item;
+    
     public LibraryTransactionHandler(String personId, String password, String libraryId, String itemId,
                                      String date, String clock) {
         this.personId = personId;
@@ -26,28 +29,25 @@ public class LibraryTransactionHandler {
             return "not-found";
         }
 
-        Library library = Center.getLibraries().get(this.libraryId);
-        Person person = Center.getPersons().get(this.personId);
         if (!Center.isCorrectPassword(this.personId, this.password)) {
             return "invalid-pass";
         }
 
-        if (person.bucketIsFull() || person.hasDebt() || person.borrowedThisItem(this.itemId, this.libraryId)) {
+        if (this.person.bucketIsFull() || this.person.hasDebt() || this.person.borrowedThisItem(this.itemId, this.libraryId)) {
             return "not-allowed";
         }
 
-        Item item = library.getItems().get(this.itemId);
-        if (!item.isBorrowable()) {
+        if (!this.item.isBorrowable()) {
             return "not-allowed";
         }
 
-        Borrowable borrowable = (Borrowable) item;
+        Borrowable borrowable = (Borrowable) this.item;
         if (!borrowable.canBorrow()) {
             return "not-allowed";
         }
         String fixedDate = Center.formatDate(this.date);
         Borrow borrow = new Borrow(this.personId, this.libraryId, this.itemId, fixedDate, this.clock);
-        person.borrow(borrow);
+        this.person.borrow(borrow);
         borrowable.borrow();
         return "success";
     }
@@ -57,9 +57,7 @@ public class LibraryTransactionHandler {
             return "not-found";
         }
 
-        Library library = Center.getLibraries().get(this.libraryId);
-        Person person = Center.getPersons().get(this.personId);
-        if (!person.borrowedThisItem(this.itemId, this.libraryId)) {
+        if (!this.person.borrowedThisItem(this.itemId, this.libraryId)) {
             return "not-found";
         }
 
@@ -67,14 +65,13 @@ public class LibraryTransactionHandler {
             return "invalid-pass";
         }
 
-        Item item = library.getItems().get(this.itemId);
-        Borrow borrow = person.getBorrow(this.itemId, this.libraryId);
+        Borrow borrow = this.person.getBorrow(this.itemId, this.libraryId);
         String fixedDate = Center.formatDate(this.date);
         String fullDateTime = fixedDate + "T" + this.clock;
         LocalDateTime returnDateTime = LocalDateTime.parse(fullDateTime);
-        long debt = person.debtForReturn(borrow.getBorrowTime(), returnDateTime, item);
-        person.returnItem(borrow);
-        Borrowable borrowableItem = (Borrowable) item;
+        long debt = this.person.debtForReturn(borrow.getBorrowTime(), returnDateTime, this.item);
+        this.person.returnItem(borrow);
+        Borrowable borrowableItem = (Borrowable) this.item;
         borrowableItem.returnItem();
         if (debt == 0) {
             return "success";
@@ -88,18 +85,15 @@ public class LibraryTransactionHandler {
             return "not-found";
         }
 
-        Library library = Center.getLibraries().get(this.libraryId);
-        Person person = Center.getPersons().get(this.personId);
         if (!Center.isCorrectPassword(this.personId, this.password)) {
             return "invalid-pass";
         }
 
-        Item item = library.getItems().get(this.itemId);
-        if (!item.isPurchasable()) {
+        if (!this.item.isPurchasable()) {
             return "not-allowed";
         }
-        PurchasableBook purchasableBook = (PurchasableBook) item;
-        if (purchasableBook.isSoldOut() || person.hasDebt() || person.bucketIsFull()) {
+        PurchasableBook purchasableBook = (PurchasableBook) this.item;
+        if (purchasableBook.isSoldOut() || this.person.hasDebt() || this.person.bucketIsFull()) {
             return "not-allowed";
         }
 
@@ -116,8 +110,6 @@ public class LibraryTransactionHandler {
             return "not-found";
         }
 
-        Library library = Center.getLibraries().get(this.libraryId);
-        Person person = Center.getPersons().get(this.personId);
         if (!Center.isCorrectPassword(this.personId, this.password)) {
             return "invalid-pass";
         }
@@ -126,16 +118,15 @@ public class LibraryTransactionHandler {
             return "permission-denied";
         }
 
-        Item item = library.getItems().get(this.itemId);
-        if (!item.isTreasure()) {
+        if (!this.item.isTreasure()) {
             return "not-allowed";
         }
 
-        TreasureBook treasureBook = (TreasureBook) item;
+        TreasureBook treasureBook = (TreasureBook) this.item;
         String fixedDate = Center.formatDate(this.date);
         String newTimeString = fixedDate + "T" + this.clock;
         LocalDateTime newTime = LocalDateTime.parse(newTimeString);
-        if (!treasureBook.isReadable(newTime) || person.hasDebt() || person.bucketIsFull()) {
+        if (!treasureBook.isReadable(newTime) || this.person.hasDebt() || this.person.bucketIsFull()) {
             return "not-allowed";
         }
 
@@ -147,11 +138,13 @@ public class LibraryTransactionHandler {
         if (!Center.libraryExists(this.libraryId) || !Center.personExists(this.personId)) {
             return true;
         }
+        this.library = Center.getLibraries().get(this.libraryId);
+        this.person = Center.getPersons().get(this.personId);
 
-        Library library = Center.getLibraries().get(this.libraryId);
-        if (!Center.bookExists(library, this.itemId)) {
+        if (!Center.bookExists(this.library, this.itemId)) {
             return true;
         }
+        this.item = this.library.getItems().get(this.itemId);
 
         return false;
     }
