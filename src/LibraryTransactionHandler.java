@@ -121,7 +121,7 @@ public class LibraryTransactionHandler {
         if (!this.item.isPurchasable()) {
             return "not-allowed";
         }
-        PurchasableBook purchasableBook = (PurchasableBook) this.item;
+        Purchasable purchasableBook = (Purchasable) this.item;
         if (purchasableBook.isSoldOut() || this.person.hasDebt() || this.person.bucketIsFull()) {
             return "not-allowed";
         }
@@ -152,19 +152,19 @@ public class LibraryTransactionHandler {
             return "permission-denied";
         }
 
-        if (!this.item.isTreasure()) {
+        if (!this.item.isReadable()) {
             return "not-allowed";
         }
 
-        TreasureBook treasureBook = (TreasureBook) this.item;
+        Readable readableBook = (Readable) this.item;
         String fixedDate = Center.formatDate(this.date);
         String newTimeString = fixedDate + "T" + this.clock;
         LocalDateTime newTime = LocalDateTime.parse(newTimeString);
-        if (!treasureBook.isReadable(newTime) || this.person.hasDebt() || this.person.bucketIsFull()) {
+        if (!readableBook.canRead(newTime) || this.person.hasDebt() || this.person.bucketIsFull()) {
             return "not-allowed";
         }
 
-        treasureBook.read(newTime);
+        readableBook.read(newTime);
         return "success";
     }
 
