@@ -58,4 +58,13 @@ public class NormalBook extends Item implements Borrowable {
     public void returnItem() {
         this.increaseRemainder();
     }
+
+    @Override
+    public boolean search(String searchKey) {
+        if (this.publisher.toLowerCase().contains(searchKey.toLowerCase())) {
+            return true;
+        }
+
+        return super.search(searchKey);
+    }
 }

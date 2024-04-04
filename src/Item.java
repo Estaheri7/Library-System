@@ -120,4 +120,13 @@ public abstract class Item {
     public boolean isReadable() {
         return this instanceof Readable;
     }
+
+    public boolean search(String searchKey) {
+        if (this.title.toLowerCase().contains(searchKey.toLowerCase()) ||
+                this.authorName.toLowerCase().contains(searchKey.toLowerCase())) {
+            return true;
+        }
+
+        return false;
+    }
 }

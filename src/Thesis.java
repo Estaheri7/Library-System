@@ -58,4 +58,13 @@ public class Thesis extends Item implements Borrowable {
     public void returnItem() {
         this.isBorrowed = false;
     }
+
+    @Override
+    public boolean search(String searchKey) {
+        if (this.advisorName.toLowerCase().contains(searchKey.toLowerCase())) {
+            return true;
+        }
+
+        return super.search(searchKey);
+    }
 }
