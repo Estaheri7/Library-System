@@ -361,6 +361,10 @@ public class Center {
             return "not-found";
         }
 
+        if (!personExists(args[1])) {
+            return "not-found";
+        }
+
         if (!isCorrectPassword(args[1], args[2])) {
             return "invalid-pass";
         }
