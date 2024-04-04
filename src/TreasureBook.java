@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
  * The {@code TreasureBook} class represents a treasure book item in the library system.
  * It extends the {@link Item} class, inheriting its attributes and methods.
  */
-public class TreasureBook extends Item {
+public class TreasureBook extends Item implements Readable {
     private String publisher;
     private String donateName;
     private LocalDateTime currentTime;
@@ -35,7 +35,8 @@ public class TreasureBook extends Item {
      * @param newTime The current time.
      * @return {@code true} if the treasure book is readable, {@code false} otherwise.
      */
-    public boolean isReadable(LocalDateTime newTime) {
+    @Override
+    public boolean canRead(LocalDateTime newTime) {
         long hourBetween = 0;
         if (this.currentTime != null) {
             hourBetween = ChronoUnit.HOURS.between(this.currentTime, newTime);
@@ -48,6 +49,7 @@ public class TreasureBook extends Item {
      *
      * @param readTime The time at which the treasure book is read.
      */
+    @Override
     public void read(LocalDateTime readTime) {
         this.currentTime = readTime;
     }
