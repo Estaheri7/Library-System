@@ -122,6 +122,10 @@ public abstract class Item {
     }
 
     public boolean search(String searchKey) {
+        if (!(this instanceof Searchable)) {
+            return false;
+        }
+
         if (this.title.toLowerCase().contains(searchKey.toLowerCase()) ||
                 this.authorName.toLowerCase().contains(searchKey.toLowerCase())) {
             return true;
