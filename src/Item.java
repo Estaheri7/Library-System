@@ -109,7 +109,7 @@ public abstract class Item {
      * @return {@code true} if the item is an instance of a purchasable book, {@code false} otherwise.
      */
     public boolean isPurchasable() {
-        return this instanceof PurchasableBook;
+        return this instanceof Purchasable;
     }
 
     /**
@@ -117,7 +117,7 @@ public abstract class Item {
      *
      * @return {@code true} if the item is an instance of a treasure book, {@code false} otherwise.
      */
-    public boolean isTreasure() {
-        return this instanceof TreasureBook;
+    public boolean isReadable() {
+        return this instanceof Readable;
     }
 }
