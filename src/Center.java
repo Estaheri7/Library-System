@@ -369,7 +369,7 @@ public class Center {
             return "invalid-pass";
         }
 
-        if (!describeRole(args[1]).equals("student") || !describeRole(args[1]).equals("professor")) {
+        if (!describeRole(args[1]).equals("student") && !describeRole(args[1]).equals("professor")) {
             return "permission-denied";
         }
 
