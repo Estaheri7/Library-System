@@ -35,6 +35,11 @@ public class TestParser {
             LibraryTransactionHandler libraryTransactionHandler = new LibraryTransactionHandler(command[1],
                     command[2], command[3], command[4], command[5], command[6]);
             System.out.println(libraryTransactionHandler.read());
+        } else if (command[0].equals("add-comment")) {
+            System.out.println(Center.addComment(command));
+        } else if (command[0].equals("search")) {
+            SearchHandler searchHandler = new SearchHandler(command[1]);
+            System.out.println(searchHandler.searchBook());
         }
     }
 }
