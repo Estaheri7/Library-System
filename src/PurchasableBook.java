@@ -2,7 +2,7 @@
  * The {@code PurchasableBook} class represents a book item available for purchase in the library system.
  * It extends the {@link Item} class, inheriting its attributes and methods.
  */
-public class PurchasableBook extends Item {
+public class PurchasableBook extends Item implements Purchasable {
     private String publisher;
     private String price;
     private String discount;
@@ -34,6 +34,7 @@ public class PurchasableBook extends Item {
      *
      * @return {@code true} if the book is sold out, {@code false} otherwise.
      */
+    @Override
     public boolean isSoldOut() {
         return this.getRemainder() == 0;
     }
@@ -41,6 +42,7 @@ public class PurchasableBook extends Item {
     /**
      * Decreases the number of remaining copies when a book is sold.
      */
+    @Override
     public void sell() {
         this.decreaseRemainder();
     }
