@@ -59,12 +59,14 @@ public class NormalBook extends Item implements Borrowable, Searchable {
         this.increaseRemainder();
     }
 
+    /**
+     * Searches for a keyword within the book's title, author name, or publisher.
+     *
+     * @param searchKey The keyword to search for.
+     * @return {@code true} if the keyword is found in the book's title, author name, or publisher, {@code false} otherwise.
+     */
     @Override
     public boolean search(String searchKey) {
-        if (this.publisher.toLowerCase().contains(searchKey.toLowerCase())) {
-            return true;
-        }
-
-        return super.search(searchKey);
+        return this.publisher.toLowerCase().contains(searchKey.toLowerCase()) || super.search(searchKey);
     }
 }

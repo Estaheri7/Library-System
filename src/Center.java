@@ -351,6 +351,21 @@ public class Center {
         return addResource(pBook, args[1], args[2]);
     }
 
+    /**
+     * Adds a comment to a book in the library system.
+     *
+     * @param args An array of strings containing arguments for adding a comment. The array should contain:
+     *             args[0]: The command identifier.
+     *             args[1]: The ID of the person adding the comment.
+     *             args[2]: The password of the person adding the comment.
+     *             args[3]: The ID of the library where the book is located.
+     *             args[4]: The ID of the book to which the comment is to be added.
+     * @return A string indicating the result of adding the comment:
+     *         - "not-found" if the library, book, or person is not found in the system.
+     *         - "invalid-pass" if the password provided is incorrect.
+     *         - "permission-denied" if the person does not have permission to add a comment (only students and professors can add comments).
+     *         - "success" if the comment is successfully added.
+     */
     public static String addComment(String[] args) {
         if (!libraryExists(args[3])) {
             return "not-found";

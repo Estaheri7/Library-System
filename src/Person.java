@@ -44,6 +44,11 @@ public abstract class Person {
         this.role = role;
     }
 
+    /**
+     * Retrieves the ID of the person.
+     *
+     * @return The ID of the person.
+     */
     public String getPersonId() {
         return this.personId;
     }
@@ -178,12 +183,14 @@ public abstract class Person {
         this.borrowBucket--;
     }
 
+    /**
+     * Searches for a keyword within the person's name or last name.
+     *
+     * @param searchKey The keyword to search for.
+     * @return {@code true} if the keyword is found in the person's name or last name, {@code false} otherwise.
+     */
     public boolean search(String searchKey) {
-        if (this.name.toLowerCase().contains(searchKey.toLowerCase()) ||
-            this.lastName.toLowerCase().contains(searchKey.toLowerCase())) {
-            return true;
-        }
-
-        return false;
+        return this.name.toLowerCase().contains(searchKey.toLowerCase()) ||
+                this.lastName.toLowerCase().contains(searchKey.toLowerCase());
     }
 }

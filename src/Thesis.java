@@ -59,12 +59,15 @@ public class Thesis extends Item implements Borrowable, Searchable {
         this.isBorrowed = false;
     }
 
+    /**
+     * Searches for the specified keyword within the thesis details.
+     * If the keyword matches the advisor name, returns true.
+     *
+     * @param searchKey The keyword to search for.
+     * @return {@code true} if the keyword matches the advisor name, {@code false} otherwise.
+     */
     @Override
     public boolean search(String searchKey) {
-        if (this.advisorName.toLowerCase().contains(searchKey.toLowerCase())) {
-            return true;
-        }
-
-        return super.search(searchKey);
+        return this.advisorName.toLowerCase().contains(searchKey.toLowerCase()) || super.search(searchKey);
     }
 }

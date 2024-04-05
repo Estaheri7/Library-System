@@ -121,12 +121,14 @@ public abstract class Item {
         return this instanceof Readable;
     }
 
+    /**
+     * Searches for a keyword within the item's title or author name.
+     *
+     * @param searchKey The keyword to search for.
+     * @return {@code true} if the keyword is found in the item's title or author name, {@code false} otherwise.
+     */
     public boolean search(String searchKey) {
-        if (this.title.toLowerCase().contains(searchKey.toLowerCase()) ||
-                this.authorName.toLowerCase().contains(searchKey.toLowerCase())) {
-            return true;
-        }
-
-        return false;
+        return this.title.toLowerCase().contains(searchKey.toLowerCase()) ||
+                this.authorName.toLowerCase().contains(searchKey.toLowerCase());
     }
 }
