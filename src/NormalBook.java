@@ -2,7 +2,7 @@
  * The {@code NormalBook} class represents a normal book item in the library system.
  * It extends the {@link Item} class, inheriting its attributes and methods.
  */
-public class NormalBook extends Item implements Borrowable {
+public class NormalBook extends Item implements Borrowable, Searchable {
     private String publisher;
 
     /**
@@ -57,5 +57,14 @@ public class NormalBook extends Item implements Borrowable {
     @Override
     public void returnItem() {
         this.increaseRemainder();
+    }
+
+    @Override
+    public boolean search(String searchKey) {
+        if (this.publisher.toLowerCase().contains(searchKey.toLowerCase())) {
+            return true;
+        }
+
+        return super.search(searchKey);
     }
 }

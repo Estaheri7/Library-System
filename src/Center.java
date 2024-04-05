@@ -351,6 +351,31 @@ public class Center {
         return addResource(pBook, args[1], args[2]);
     }
 
+    public static String addComment(String[] args) {
+        if (!libraryExists(args[3])) {
+            return "not-found";
+        }
+
+        Library library = libraries.get(args[3]);
+        if (!bookExists(library, args[4])) {
+            return "not-found";
+        }
+
+        if (!personExists(args[1])) {
+            return "not-found";
+        }
+
+        if (!isCorrectPassword(args[1], args[2])) {
+            return "invalid-pass";
+        }
+
+        if (!describeRole(args[1]).equals("student") && !describeRole(args[1]).equals("professor")) {
+            return "permission-denied";
+        }
+
+        return "success";
+    }
+
     /**
      * Checks if a library with the specified key exists in the system.
      * @param key The ID of the library to check.

@@ -44,6 +44,10 @@ public abstract class Person {
         this.role = role;
     }
 
+    public String getPersonId() {
+        return this.personId;
+    }
+
     /**
      * Retrieves the password of the person.
      *
@@ -172,5 +176,14 @@ public abstract class Person {
     public void returnItem(Borrow borrow) {
         this.borrows.remove(borrow);
         this.borrowBucket--;
+    }
+
+    public boolean search(String searchKey) {
+        if (this.name.toLowerCase().contains(searchKey.toLowerCase()) ||
+            this.lastName.toLowerCase().contains(searchKey.toLowerCase())) {
+            return true;
+        }
+
+        return false;
     }
 }
