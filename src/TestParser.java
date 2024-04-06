@@ -46,6 +46,9 @@ public class TestParser {
         } else if (command[0].equals("category-report")) {
             ReportHandler reportHandler = new ReportHandler(command[1], command[2]);
             System.out.println(reportHandler.categoryReport(command[3], command[4]));
+        } else if (command[0].equals("library-report")) {
+            ReportHandler reportHandler = new ReportHandler(command[1], command[2]);
+            System.out.println(reportHandler.libraryReport(command[3]));
         }
     }
 }
