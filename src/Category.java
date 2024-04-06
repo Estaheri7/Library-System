@@ -20,4 +20,12 @@ public class Category {
         this.name = name;
         this.superCategory = superCategory;
     }
+
+    public String getCategoryId() {
+        return this.categoryId;
+    }
+
+    public String getSuperCategory() {
+        return this.superCategory;
+    }
 }
