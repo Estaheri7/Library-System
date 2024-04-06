@@ -43,6 +43,9 @@ public class TestParser {
         } else if (command[0].equals("search-user")) {
             SearchHandler searchHandler = new SearchHandler(command[3]);
             System.out.println(searchHandler.searchUser(command[1], command[2]));
+        } else if (command[0].equals("category-report")) {
+            ReportHandler reportHandler = new ReportHandler(command[1], command[2]);
+            System.out.println(reportHandler.categoryReport(command[3], command[4]));
         }
     }
 }
