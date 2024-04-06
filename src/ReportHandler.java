@@ -40,4 +40,21 @@ public class ReportHandler {
 
         return library.categoryReport(categories);
     }
+
+    public String libraryReport(String libraryId) {
+        if (!Center.libraryExists(libraryId) || !Center.personExists(this.personId)) {
+            return "not-found";
+        }
+
+        if (!Center.isLibraryManager(this.personId, libraryId)) {
+            return "permission-denied";
+        }
+
+        if (!Center.isCorrectPassword(this.personId, this.password)) {
+            return "invalid-pass";
+        }
+
+        Library library = Center.getLibraries().get(libraryId);
+        return library.libraryReport();
+    }
 }
