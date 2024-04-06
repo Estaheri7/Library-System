@@ -130,6 +130,10 @@ public abstract class Person {
         return null;
     }
 
+    public ArrayList<Borrow> getBorrows() {
+        return this.borrows;
+    }
+
     /**
      * Borrows an item and adds it to the person's borrow history.
      *
@@ -147,6 +151,21 @@ public abstract class Person {
      */
     public boolean hasBorrowed() {
         return this.borrows.size() > 0;
+    }
+
+    public boolean includesDebt(long hourBetween, Item item) {
+        boolean isBook = item instanceof NormalBook;
+        if (isBook) {
+            if (hourBetween > 14 * 24) {
+                return true;
+            }
+        } else {
+            if (hourBetween > 10 * 24) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
