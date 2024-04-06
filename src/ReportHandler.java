@@ -91,6 +91,23 @@ public class ReportHandler {
             }
         }
 
-        return null;
+        return this.printResults(new ArrayList<>(uniques));
+    }
+
+    public StringBuilder printResults(ArrayList<String> uniques) {
+        if (uniques.size() == 0) {
+            return new StringBuilder("none");
+        }
+
+        Collections.sort(uniques);
+        StringBuilder resultIds = new StringBuilder();
+
+        for (String id : uniques) {
+            resultIds.append(id);
+            resultIds.append("|");
+        }
+
+        resultIds.deleteCharAt(resultIds.length() - 1);
+        return resultIds;
     }
 }
