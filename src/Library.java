@@ -73,6 +73,36 @@ public class Library {
         return normalBooks + " " + theses + " " + treasureBooks + " " + purchasableBooks;
     }
 
+    public String libraryReport() {
+        int normalBooks = 0;
+        int theses = 0;
+        int borrowedBooks = 0;
+        int borrowedTheses = 0;
+        int treasureBooks = 0;
+        int purchasableBooks = 0;
+
+        for (Item item : this.items.values()) {
+            if (item instanceof NormalBook) {
+                normalBooks += item.getCopies();
+                if (((NormalBook) item).isBorrowed()) {
+                    borrowedBooks++;
+                }
+            } else if (item instanceof Thesis) {
+                theses++;
+                if (((Thesis) item).isBorrowed()) {
+                    borrowedTheses++;
+                }
+            } else if (item instanceof TreasureBook) {
+                treasureBooks++;
+            } else if (item instanceof PurchasableBook) {
+                purchasableBooks += item.getRemainder();
+            }
+        }
+
+        return normalBooks + " " + theses + " " + borrowedBooks + " " +
+                borrowedTheses + " " + treasureBooks + " " + purchasableBooks;
+    }
+
     /**
      * Retrieves a map containing all items in the library.
      *
