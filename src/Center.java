@@ -405,7 +405,7 @@ public class Center {
      * @param key The ID of the category to check.
      * @return {@code true} if the category exists, {@code false} otherwise.
      */
-    private static boolean categoryExists(String key) {
+    public static boolean categoryExists(String key) {
         return categories.containsKey(key);
     }
 
