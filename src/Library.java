@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * The {@code Library} class represents a library in the system.
@@ -46,6 +47,30 @@ public class Library {
      */
     public void removeItem(String itemId) {
         this.items.remove(itemId);
+    }
+
+    public String categoryReport(HashSet<String> categories) {
+        int normalBooks = 0;
+        int theses = 0;
+        int treasureBooks = 0;
+        int purchasableBooks = 0;
+        for (String category : categories) {
+            for (Item item : this.items.values()) {
+                if (item.getCategoryId().equals(category)) {
+                    if (item instanceof NormalBook) {
+                        normalBooks += item.getCopies();
+                    } else if (item instanceof Thesis) {
+                        theses += item.getCopies();
+                    } else if (item instanceof TreasureBook) {
+                        treasureBooks += item.getCopies();
+                    } else if (item instanceof PurchasableBook) {
+                        purchasableBooks += item.getCopies();
+                    }
+                }
+            }
+        }
+
+        return normalBooks + " " + theses + " " + treasureBooks + " " + purchasableBooks;
     }
 
     /**
