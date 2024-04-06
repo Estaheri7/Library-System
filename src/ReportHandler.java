@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 
 public class ReportHandler {
@@ -56,5 +60,37 @@ public class ReportHandler {
 
         Library library = Center.getLibraries().get(libraryId);
         return library.libraryReport();
+    }
+
+    public StringBuilder reportPassedDeadline(String libraryId, String date, String clock) {
+        if (!Center.libraryExists(libraryId) || !Center.personExists(this.personId)) {
+            return new StringBuilder("not-found");
+        }
+
+        if (!Center.isLibraryManager(this.personId, libraryId)) {
+            return new StringBuilder("permission-denied");
+        }
+
+        if (!Center.isCorrectPassword(this.personId, this.password)) {
+            return new StringBuilder("invalid-pass");
+        }
+
+        Library library = Center.getLibraries().get(libraryId);
+        String fixedDate = Center.formatDate(date);
+        LocalDateTime givenDate = LocalDateTime.parse(fixedDate + "T" + clock);
+
+        HashSet<String> uniques = new HashSet<>();
+        for (Person person : Center.getPersons().values()) {
+            ArrayList<Borrow> borrows = person.getBorrows();
+            for (Borrow borrow : borrows) {
+                Item item = library.getItems().get(borrow.getItemId());
+                long hourBetween = ChronoUnit.HOURS.between(borrow.getBorrowTime(), givenDate);
+                if (person.includesDebt(hourBetween, item)) {
+                    uniques.add(item.getItemId());
+                }
+            }
+        }
+
+        return null;
     }
 }
