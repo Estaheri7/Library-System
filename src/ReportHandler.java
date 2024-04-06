@@ -94,7 +94,7 @@ public class ReportHandler {
         return this.printResults(new ArrayList<>(uniques));
     }
 
-    public StringBuilder printResults(ArrayList<String> uniques) {
+    private StringBuilder printResults(ArrayList<String> uniques) {
         if (uniques.size() == 0) {
             return new StringBuilder("none");
         }
@@ -109,5 +109,26 @@ public class ReportHandler {
 
         resultIds.deleteCharAt(resultIds.length() - 1);
         return resultIds;
+    }
+
+    public String reportPenaltiesSum() {
+        if (!Center.personExists(this.personId)) {
+            return "not-found";
+        }
+
+        if (!Center.isCorrectPassword(this.personId, this.password)) {
+            return "invalid-pass";
+        }
+
+        if (!Center.describeRole(personId).equals("admin")) {
+            return "permission-denied";
+        }
+
+        long totalDebt = 0;
+        for (Person person : Center.getPersons().values()) {
+            totalDebt += person.totalDebt;
+        }
+
+        return "" + totalDebt;
     }
 }
