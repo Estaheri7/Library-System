@@ -19,6 +19,7 @@ public abstract class Person {
     private ArrayList<Borrow> borrows = new ArrayList<>();
     private int borrowBucket = 0;
     protected long debt = 0;
+    protected long totalDebt = 0;
 
     /**
      * Constructs a new Person object with the specified details.
@@ -95,7 +96,7 @@ public abstract class Person {
      * @return {@code true} if the person has debt, {@code false} otherwise.
      */
     public boolean hasDebt() {
-        return this.debt != 0;
+        return this.totalDebt != 0;
     }
 
     /**
@@ -182,10 +183,12 @@ public abstract class Person {
         if (item instanceof NormalBook) {
             if (hourBetween > 14 * 24) {
                 this.debt += (hourBetween - 14 * 24) * 100;
+                this.totalDebt += (hourBetween - 14 * 24) * 100;
             }
         } else if (item instanceof Thesis) {
             if (hourBetween > 10 * 24) {
                 this.debt += (hourBetween - 10 * 14) * 100;
+                this.totalDebt += (hourBetween - 10 * 14) * 100;
             }
         }
 
@@ -199,6 +202,7 @@ public abstract class Person {
      */
     public void returnItem(Borrow borrow) {
         this.borrows.remove(borrow);
+        this.debt = 0;
         this.borrowBucket--;
     }
 

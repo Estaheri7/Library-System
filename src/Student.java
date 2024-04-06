@@ -64,10 +64,12 @@ public class Student extends Person {
         if (item instanceof NormalBook) {
             if (hourBetween > 10 * 24) {
                 this.debt += (hourBetween - 10 * 24) * 50;
+                this.totalDebt += (hourBetween - 10 * 24) * 50;
             }
         } else if (item instanceof Thesis) {
             if (hourBetween > 7 * 24) {
                 this.debt += (hourBetween - 7 * 14) * 50;
+                this.totalDebt += (hourBetween - 7 * 14) * 50;
             }
         }
 
