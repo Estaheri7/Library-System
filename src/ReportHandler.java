@@ -35,6 +35,12 @@ public class ReportHandler {
         }
 
         for (Category category : Center.getCategories().values()) {
+            if (category.getSuperCategory().equals(categoryId)) {
+                categories.add(category.getCategoryId());
+            }
+        }
+
+        for (Category category : Center.getCategories().values()) {
             for (String superCategory : categories) {
                 if (category.getSuperCategory().equals(superCategory)) {
                     categories.add(category.getCategoryId());
@@ -83,10 +89,12 @@ public class ReportHandler {
         for (Person person : Center.getPersons().values()) {
             ArrayList<Borrow> borrows = person.getBorrows();
             for (Borrow borrow : borrows) {
-                Item item = library.getItems().get(borrow.getItemId());
-                long hourBetween = ChronoUnit.HOURS.between(borrow.getBorrowTime(), givenDate);
-                if (person.includesDebt(hourBetween, item)) {
-                    uniques.add(item.getItemId());
+                if (borrow.getLibraryId().equals(libraryId)) {
+                    Item item = library.getItems().get(borrow.getItemId());
+                    long hourBetween = ChronoUnit.HOURS.between(givenDate, borrow.getBorrowTime());
+                    if (person.includesDebt(hourBetween, item)) {
+                        uniques.add(item.getItemId());
+                    }
                 }
             }
         }

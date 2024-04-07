@@ -155,18 +155,13 @@ public abstract class Person {
     }
 
     public boolean includesDebt(long hourBetween, Item item) {
-        boolean isBook = item instanceof NormalBook;
-        if (isBook) {
-            if (hourBetween > 14 * 24) {
-                return true;
-            }
-        } else {
-            if (hourBetween > 10 * 24) {
-                return true;
-            }
+        if (item == null) {
+            return false;
         }
 
-        return false;
+        boolean isBook = item instanceof NormalBook;
+        boolean isThesis = item instanceof Thesis;
+        return (isBook && hourBetween > 14 * 24) || (isThesis && hourBetween > 10 * 24);
     }
 
     /**

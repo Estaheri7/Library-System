@@ -35,18 +35,13 @@ public class Student extends Person {
 
     @Override
     public boolean includesDebt(long hourBetween, Item item) {
-        boolean isBook = item instanceof NormalBook;
-        if (isBook) {
-            if (hourBetween > 10 * 24) {
-                return true;
-            }
-        } else {
-            if (hourBetween > 7 * 24) {
-                return true;
-            }
+        if (item == null) {
+            return false;
         }
 
-        return false;
+        boolean isBook = item instanceof NormalBook;
+        boolean isThesis = item instanceof Thesis;
+        return (isBook && hourBetween > 10 * 24) || (isThesis && hourBetween > 7 * 24);
     }
 
     /**

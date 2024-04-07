@@ -85,7 +85,7 @@ public class Library {
             if (item instanceof NormalBook) {
                 normalBooks += item.getCopies();
                 if (((NormalBook) item).isBorrowed()) {
-                    borrowedBooks++;
+                    borrowedBooks += item.getCopies() - item.getRemainder();
                 }
             } else if (item instanceof Thesis) {
                 theses++;
