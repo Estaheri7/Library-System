@@ -270,17 +270,17 @@ public class Center {
             return "not-found";
         }
 
-        Library library = libraries.get(args[4]);
-        if (!bookExists(library, args[3])) {
-            return "not-found";
-        }
-
         if (!personExists(args[1])) {
             return "not-found";
         }
 
         if (!isLibraryManager(args[1], args[4])) {
             return "permission-denied";
+        }
+
+        Library library = libraries.get(args[4]);
+        if (!bookExists(library, args[3])) {
+            return "not-found";
         }
 
         if (!isCorrectPassword(args[1], args[2])) {
@@ -360,6 +360,7 @@ public class Center {
      *             args[2]: The password of the person adding the comment.
      *             args[3]: The ID of the library where the book is located.
      *             args[4]: The ID of the book to which the comment is to be added.
+     *             args[5]: The comment.
      * @return A string indicating the result of adding the comment:
      *         - "not-found" if the library, book, or person is not found in the system.
      *         - "invalid-pass" if the password provided is incorrect.
@@ -388,6 +389,9 @@ public class Center {
             return "permission-denied";
         }
 
+        Item item = library.getItems().get(args[4]);
+        item.addComment(args[5]);
+
         return "success";
     }
 
@@ -405,7 +409,7 @@ public class Center {
      * @param key The ID of the category to check.
      * @return {@code true} if the category exists, {@code false} otherwise.
      */
-    private static boolean categoryExists(String key) {
+    public static boolean categoryExists(String key) {
         return categories.containsKey(key);
     }
 

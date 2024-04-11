@@ -19,6 +19,7 @@ public abstract class Person {
     private ArrayList<Borrow> borrows = new ArrayList<>();
     private int borrowBucket = 0;
     protected long debt = 0;
+    protected long totalDebt = 0;
 
     /**
      * Constructs a new Person object with the specified details.
@@ -95,7 +96,7 @@ public abstract class Person {
      * @return {@code true} if the person has debt, {@code false} otherwise.
      */
     public boolean hasDebt() {
-        return this.debt != 0;
+        return this.totalDebt != 0;
     }
 
     /**
@@ -130,6 +131,10 @@ public abstract class Person {
         return null;
     }
 
+    public ArrayList<Borrow> getBorrows() {
+        return this.borrows;
+    }
+
     /**
      * Borrows an item and adds it to the person's borrow history.
      *
@@ -149,6 +154,16 @@ public abstract class Person {
         return this.borrows.size() > 0;
     }
 
+    public boolean includesDebt(long hourBetween, Item item) {
+        if (item == null) {
+            return false;
+        }
+
+        boolean isBook = item instanceof NormalBook;
+        boolean isThesis = item instanceof Thesis;
+        return (isBook && hourBetween > 14 * 24) || (isThesis && hourBetween > 10 * 24);
+    }
+
     /**
      * Calculates the debt incurred for returning a borrowed item after a specified duration.
      *
@@ -163,10 +178,12 @@ public abstract class Person {
         if (item instanceof NormalBook) {
             if (hourBetween > 14 * 24) {
                 this.debt += (hourBetween - 14 * 24) * 100;
+                this.totalDebt += (hourBetween - 14 * 24) * 100;
             }
         } else if (item instanceof Thesis) {
             if (hourBetween > 10 * 24) {
                 this.debt += (hourBetween - 10 * 14) * 100;
+                this.totalDebt += (hourBetween - 10 * 14) * 100;
             }
         }
 
@@ -180,6 +197,7 @@ public abstract class Person {
      */
     public void returnItem(Borrow borrow) {
         this.borrows.remove(borrow);
+        this.debt = 0;
         this.borrowBucket--;
     }
 

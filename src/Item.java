@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * The {@code Item} class represents an item in the library system.
  * It is an abstract class that provides a blueprint for various types of library items.
@@ -11,6 +13,7 @@ public abstract class Item {
     private int remainder;
     private String categoryId;
     private String libraryId;
+    private ArrayList<String> comments = new ArrayList<>();
 
     /**
      * Constructs a new Item object with the specified details.
@@ -119,6 +122,15 @@ public abstract class Item {
      */
     public boolean isReadable() {
         return this instanceof Readable;
+    }
+
+    /**
+     * Adds a comment to the list of comments associated with this object.
+     *
+     * @param comment The comment to be added.
+     */
+    public void addComment(String comment) {
+        this.comments.add(comment);
     }
 
     /**

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * The {@code Library} class represents a library in the system.
@@ -46,6 +47,56 @@ public class Library {
      */
     public void removeItem(String itemId) {
         this.items.remove(itemId);
+    }
+
+    public String categoryReport(HashSet<String> categories) {
+        int normalBooks = 0;
+        int theses = 0;
+        int treasureBooks = 0;
+        int purchasableBooks = 0;
+        for (String category : categories) {
+            for (Item item : this.items.values()) {
+                if (item.getCategoryId().equals(category)) {
+                    if (item instanceof NormalBook) {
+                        normalBooks += item.getRemainder();
+                    } else if (item instanceof Thesis) {
+                        theses += item.getRemainder();
+                    } else if (item instanceof TreasureBook) {
+                        treasureBooks += item.getRemainder();
+                    } else if (item instanceof PurchasableBook) {
+                        purchasableBooks += item.getRemainder();
+                    }
+                }
+            }
+        }
+
+        return "" + normalBooks + " " + theses + " " + treasureBooks + " " + purchasableBooks;
+    }
+
+    public String libraryReport() {
+        int normalBooks = 0;
+        int theses = 0;
+        int borrowedBooks = 0;
+        int borrowedTheses = 0;
+        int treasureBooks = 0;
+        int purchasableBooks = 0;
+
+        for (Item item : this.items.values()) {
+            if (item instanceof NormalBook) {
+                normalBooks += item.getRemainder();
+                borrowedBooks += item.getCopies() - item.getRemainder();
+            } else if (item instanceof Thesis) {
+                theses += item.getRemainder();
+                borrowedTheses += item.getCopies() - item.getRemainder();
+            } else if (item instanceof TreasureBook) {
+                treasureBooks++;
+            } else if (item instanceof PurchasableBook) {
+                purchasableBooks += item.getRemainder();
+            }
+        }
+
+        return "" + normalBooks + " " + theses + " " + borrowedBooks + " " +
+                borrowedTheses + " " + treasureBooks + " " + purchasableBooks;
     }
 
     /**

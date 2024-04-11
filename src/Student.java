@@ -33,6 +33,17 @@ public class Student extends Person {
         return this.getBorrowBucket() >= 3;
     }
 
+    @Override
+    public boolean includesDebt(long hourBetween, Item item) {
+        if (item == null) {
+            return false;
+        }
+
+        boolean isBook = item instanceof NormalBook;
+        boolean isThesis = item instanceof Thesis;
+        return (isBook && hourBetween > 10 * 24) || (isThesis && hourBetween > 7 * 24);
+    }
+
     /**
      * Calculates the debt incurred for returning an item after borrowing.
      *
@@ -48,10 +59,12 @@ public class Student extends Person {
         if (item instanceof NormalBook) {
             if (hourBetween > 10 * 24) {
                 this.debt += (hourBetween - 10 * 24) * 50;
+                this.totalDebt += (hourBetween - 10 * 24) * 50;
             }
         } else if (item instanceof Thesis) {
             if (hourBetween > 7 * 24) {
                 this.debt += (hourBetween - 7 * 14) * 50;
+                this.totalDebt += (hourBetween - 7 * 14) * 50;
             }
         }
 
