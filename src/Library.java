@@ -49,11 +49,20 @@ public class Library {
         this.items.remove(itemId);
     }
 
+    /**
+     * Generates a report on the availability of items in the library based on the provided categories.
+     * The report includes the number of available items for each category: Normal Books, Theses,
+     * Treasure Books, and Purchasable Books.
+     *
+     * @param categories A set containing the IDs of the categories for which the report is generated.
+     * @return A formatted string representing the availability of items for each category.
+     */
     public String categoryReport(HashSet<String> categories) {
         int normalBooks = 0;
         int theses = 0;
         int treasureBooks = 0;
         int purchasableBooks = 0;
+
         for (String category : categories) {
             for (Item item : this.items.values()) {
                 if (item.getCategoryId().equals(category)) {
@@ -73,6 +82,13 @@ public class Library {
         return "" + normalBooks + " " + theses + " " + treasureBooks + " " + purchasableBooks;
     }
 
+    /**
+     * Generates a comprehensive report on the status of items in the library.
+     * The report includes the number of available items, borrowed items, and specific counts
+     * for each type of item: Normal Books, Theses, Treasure Books, and Purchasable Books.
+     *
+     * @return A formatted string representing the comprehensive status report of the library.
+     */
     public String libraryReport() {
         int normalBooks = 0;
         int theses = 0;
