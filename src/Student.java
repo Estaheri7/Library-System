@@ -33,6 +33,13 @@ public class Student extends Person {
         return this.getBorrowBucket() >= 3;
     }
 
+    /**
+     * Checks if the student's borrow includes debt based on the elapsed time and the item type.
+     *
+     * @param hourBetween The number of hours between the borrow time and the return time.
+     * @param item        The item being borrowed.
+     * @return {@code true} if the borrow includes debt, {@code false} otherwise.
+     */
     @Override
     public boolean includesDebt(long hourBetween, Item item) {
         if (item == null) {
