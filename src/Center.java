@@ -360,6 +360,7 @@ public class Center {
      *             args[2]: The password of the person adding the comment.
      *             args[3]: The ID of the library where the book is located.
      *             args[4]: The ID of the book to which the comment is to be added.
+     *             args[5]: The comment.
      * @return A string indicating the result of adding the comment:
      *         - "not-found" if the library, book, or person is not found in the system.
      *         - "invalid-pass" if the password provided is incorrect.
@@ -387,6 +388,9 @@ public class Center {
         if (!describeRole(args[1]).equals("student") && !describeRole(args[1]).equals("professor")) {
             return "permission-denied";
         }
+
+        Item item = library.getItems().get(args[4]);
+        item.addComment(args[5]);
 
         return "success";
     }
