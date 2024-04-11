@@ -2,7 +2,7 @@
  * The {@code Thesis} class represents a thesis item in the library system.
  * It extends the {@link Item} class, inheriting its attributes and methods.
  */
-public class Thesis extends Item implements Borrowable, Searchable {
+public class Thesis extends Item implements Borrowable {
     private String advisorName;
     private boolean isBorrowed = false;
 
