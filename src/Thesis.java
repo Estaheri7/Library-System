@@ -49,6 +49,7 @@ public class Thesis extends Item implements Borrowable, Searchable {
     @Override
     public void borrow() {
         this.isBorrowed = true;
+        this.decreaseRemainder();
     }
 
     /**
@@ -57,6 +58,7 @@ public class Thesis extends Item implements Borrowable, Searchable {
     @Override
     public void returnItem() {
         this.isBorrowed = false;
+        this.increaseRemainder();
     }
 
     /**
