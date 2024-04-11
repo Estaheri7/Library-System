@@ -270,17 +270,17 @@ public class Center {
             return "not-found";
         }
 
-        Library library = libraries.get(args[4]);
-        if (!bookExists(library, args[3])) {
-            return "not-found";
-        }
-
         if (!personExists(args[1])) {
             return "not-found";
         }
 
         if (!isLibraryManager(args[1], args[4])) {
             return "permission-denied";
+        }
+
+        Library library = libraries.get(args[4]);
+        if (!bookExists(library, args[3])) {
+            return "not-found";
         }
 
         if (!isCorrectPassword(args[1], args[2])) {
