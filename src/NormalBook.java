@@ -2,7 +2,7 @@
  * The {@code NormalBook} class represents a normal book item in the library system.
  * It extends the {@link Item} class, inheriting its attributes and methods.
  */
-public class NormalBook extends Item implements Borrowable, Searchable {
+public class NormalBook extends Item implements Borrowable {
     private String publisher;
 
     /**
