@@ -154,6 +154,14 @@ public abstract class Person {
         return this.borrows.size() > 0;
     }
 
+    /**
+     * Checks if the person's borrowing includes debt incurred for returning a borrowed item after a specified duration.
+     * The debt calculation depends on the type of item and the duration it was overdue.
+     *
+     * @param hourBetween The duration between the borrowing and returning of the item in hours.
+     * @param item        The item for which the debt is being checked.
+     * @return {@code true} if the person's borrowing includes debt, {@code false} otherwise.
+     */
     public boolean includesDebt(long hourBetween, Item item) {
         if (item == null) {
             return false;
