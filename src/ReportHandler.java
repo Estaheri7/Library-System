@@ -14,8 +14,11 @@ public class ReportHandler {
     }
 
     public String categoryReport(String categoryId, String libraryId) {
-        if (!Center.libraryExists(libraryId) || !Center.personExists(this.personId) ||
-            !Center.categoryExists(categoryId)) {
+        if (!Center.libraryExists(libraryId) || !Center.personExists(this.personId)) {
+            return "not-found";
+        }
+
+        if (!Center.categoryExists(categoryId) && !categoryId.equals("null")) {
             return "not-found";
         }
 
@@ -91,7 +94,7 @@ public class ReportHandler {
             for (Borrow borrow : borrows) {
                 if (borrow.getLibraryId().equals(libraryId)) {
                     Item item = library.getItems().get(borrow.getItemId());
-                    long hourBetween = ChronoUnit.HOURS.between(givenDate, borrow.getBorrowTime());
+                    long hourBetween = ChronoUnit.HOURS.between(borrow.getBorrowTime(), givenDate);
                     if (person.includesDebt(hourBetween, item)) {
                         uniques.add(item.getItemId());
                     }
