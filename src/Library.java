@@ -58,19 +58,19 @@ public class Library {
             for (Item item : this.items.values()) {
                 if (item.getCategoryId().equals(category)) {
                     if (item instanceof NormalBook) {
-                        normalBooks += item.getCopies();
+                        normalBooks += item.getRemainder();
                     } else if (item instanceof Thesis) {
-                        theses += item.getCopies();
+                        theses += item.getRemainder();
                     } else if (item instanceof TreasureBook) {
-                        treasureBooks += item.getCopies();
+                        treasureBooks += item.getRemainder();
                     } else if (item instanceof PurchasableBook) {
-                        purchasableBooks += item.getCopies();
+                        purchasableBooks += item.getRemainder();
                     }
                 }
             }
         }
 
-        return normalBooks + " " + theses + " " + treasureBooks + " " + purchasableBooks;
+        return "" + normalBooks + " " + theses + " " + treasureBooks + " " + purchasableBooks;
     }
 
     public String libraryReport() {
@@ -83,15 +83,11 @@ public class Library {
 
         for (Item item : this.items.values()) {
             if (item instanceof NormalBook) {
-                normalBooks += item.getCopies();
-                if (((NormalBook) item).isBorrowed()) {
-                    borrowedBooks += item.getCopies() - item.getRemainder();
-                }
+                normalBooks += item.getRemainder();
+                borrowedBooks += item.getCopies() - item.getRemainder();
             } else if (item instanceof Thesis) {
-                theses++;
-                if (((Thesis) item).isBorrowed()) {
-                    borrowedTheses++;
-                }
+                theses += item.getRemainder();
+                borrowedTheses += item.getCopies() - item.getRemainder();
             } else if (item instanceof TreasureBook) {
                 treasureBooks++;
             } else if (item instanceof PurchasableBook) {
@@ -99,7 +95,7 @@ public class Library {
             }
         }
 
-        return normalBooks + " " + theses + " " + borrowedBooks + " " +
+        return "" + normalBooks + " " + theses + " " + borrowedBooks + " " +
                 borrowedTheses + " " + treasureBooks + " " + purchasableBooks;
     }
 
