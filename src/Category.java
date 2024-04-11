@@ -21,10 +21,21 @@ public class Category {
         this.superCategory = superCategory;
     }
 
+    /**
+     * Retrieves the unique ID of the category.
+     *
+     * @return The ID of the category.
+     */
     public String getCategoryId() {
         return this.categoryId;
     }
 
+    /**
+     * Retrieves the ID of the super category if this category is a subcategory.
+     * If the category is not a subcategory, returns {@code null}.
+     *
+     * @return The ID of the super category, or {@code null} if the category is not a subcategory.
+     */
     public String getSuperCategory() {
         return this.superCategory;
     }
